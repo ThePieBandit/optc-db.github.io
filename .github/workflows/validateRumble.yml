@@ -1,0 +1,14 @@
+name: Validate Rumble JSON
+
+on: [pull_request,workflow_dispatch]
+
+jobs:
+  verify-json-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Validate JSON
+        uses: docker://orrosenblatt/validate-json-action:latest
+        env:
+          INPUT_SCHEMA: common/data/rumble.schema.json
+          INPUT_JSONS: common/data/rumble.json
