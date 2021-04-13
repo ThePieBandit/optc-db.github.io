@@ -1678,6 +1678,11 @@ window.sailors = {
     3284: {
         atkStatic: function(p) { return p.unit.class.has("Driven") ? 50 : 0; },
     },
+    3285: {
+        atkStatic: function(p) { return 30; },
+        hpStatic: function(p) { return 30; },
+        rcvStatic: function(p) { return 30; },
+    },
     3286: {
         atkStatic: function(p) { return p.unit.class.has("Driven") || p.unit.class.has("Fighter") ? 50 : 0; },
     },
@@ -1690,6 +1695,15 @@ window.sailors = {
         atkStatic: function(p) { return p.unit.class.has("Driven") ? 30 : 0; },
         hpStatic: function(p) { return p.unit.class.has("Driven") ? 30 : 0; },
         rcvStatic: function(p) { return p.unit.class.has("Driven") ? 30 : 0; },
+    },
+    3294: {
+        atkStatic: function(p) { return 30; },
+    },
+    3295: {
+        rcvStatic: function(p) { return 30; },
+    },
+    3296: {
+        hpStatic: function(p) { return 30; },
     },
     3333: {
         staticMult: function(p) { return 3; }
@@ -2437,5 +2451,23 @@ window.sailors = {
         atkStatic: function(p) { return p.unit.class.has("Striker") || p.unit.class.has("Cerebral") ? 75 : 0; },
         rcvStatic: function(p) { return p.unit.class.has("Striker") || p.unit.class.has("Cerebral") ? 75 : 0; },
         hpStatic: function(p) { return p.unit.class.has("Striker") || p.unit.class.has("Cerebral") ? 75 : 0; },
+    },
+    5311: {
+        atkStatic: function(p) { return p.unit.class.has("Driven") ? 75 : 0; },
+    },
+    5312: {
+        atkStatic: function(p) { return p.unit.class.has("Powerhouse") ? 75 : 0; },
+    },
+    5313: {
+        atkStatic: function(p) { return p.unit.class.has("Driven") || p.unit.class.has("Powerhouse") ? 125 : 0; },
+    },
+    5314: {
+        atkStatic: function(p) { return p.unit.class.has("Driven") ? 75 : 0; },
+    },
+    5315: {
+        atkStatic: function(p) { return p.unit.class.has("Powerhouse") ? 75 : 0; },
+    },
+    5316: {
+        atkStatic: function(p) { return p.unit.class.has("Driven") || p.unit.class.has("Powerhouse") ? 125 : 0; },
     },
 };
