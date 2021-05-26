@@ -133,6 +133,9 @@
                 "type": {
                     "$ref": "#/definitions/ConditionType"
                 },
+                "team": {
+                    "$ref": "#/definitions/ConditionTeam"
+                },
                 "count": {
                     "type": "integer"
                 }
@@ -313,6 +316,9 @@
                 },
                 "condition": {
                     "$ref": "#/definitions/Condition"
+                },
+                "defbypass": {
+                    "type": "boolean"
                 }
             },
             "allOf": [
@@ -381,6 +387,9 @@
                         },
                         "condition": {
                             "$ref": "#/definitions/Condition"
+                        },
+                        "defbypass": {
+                            "type": "boolean"
                         }
                     }
                 }
@@ -468,6 +477,7 @@
                 "Action Bind",
                 "Half Stats",
                 "Haste",
+                "Counter",
                 "near"
             ],
             "title": "Attribute"
@@ -511,9 +521,18 @@
                 "time",
                 "crew",
                 "enemies",
-                "trigger"
+                "trigger",
+                "defeat"
             ],
             "title": "ConditionType"
+        },
+        "ConditionTeam": {
+            "type": "string",
+            "enum": [
+                "crew",
+                "enemies"
+            ],
+            "title": "ConditionTeam"
         },
         "EffectEnum": {
             "type": "string",

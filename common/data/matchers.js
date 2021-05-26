@@ -287,7 +287,7 @@ window.matchers = [
     },
 
     /* * * * * Specials * * * * */
-
+    
     {
         name: 'Type-boosting specials',
         target: 'special',
@@ -598,7 +598,13 @@ window.matchers = [
     {
         name: 'Orb lockers',
         target: 'special',
-        matcher: /locks (orbs|all orbs|orb|own orb)/i
+        matcher: /locks (orbs|all orbs|orb|own orb|your captain's orb)/i
+    },
+
+    {
+        name: 'Orb barrierers',
+        target: 'special',
+        matcher: /Barriers (orbs|all orbs|orb|own orb|your captain's orb|^\D+$)/i
     },
     
     {
@@ -742,9 +748,27 @@ window.matchers = [
     },
 
     {
+        name: 'End-of-Turn Healers',
+        target: 'special',
+        matcher: /Recovers.+(HP at the end of the turn|HP at the end of each turn)/i
+    },
+
+    {
+        name: 'Fixed HP Healers',
+        target: 'special',
+        matcher: /Recovers (\d|,)+ HP/i
+    },
+
+    {
         name: 'RCV based Healers',
         target: 'special',
         matcher: /Recovers.+ character\'s RCV/i
+    },
+
+    {
+        name: 'MAX HP based Healers',
+        target: 'special',
+        matcher: /(Recovers.+ crew\'s MAX HP|Recovers all missing HP)/i
     },
 
     {
@@ -1052,6 +1076,12 @@ window.matchers = [
     },
 
     {
+        name: 'MAX HP based Healers',
+        target: 'swap',
+        matcher: /(Recovers.+ crew\'s MAX HP|Recovers all missing HP)/i
+    },
+
+    {
         name: 'RCV based Healers',
         target: 'swap',
         matcher: /Recovers.+ character\'s RCV/i
@@ -1326,7 +1356,7 @@ window.matchers = [
     },
     
     {
-        name: 'Enrage Potential Ability',
+        name: 'Enrage/Reduce Increase Damage Taken Potential Ability',
         target: 'limit',
         matcher: /Enrage/i
     },
@@ -1374,7 +1404,7 @@ window.matchers = [
     },
     
     {
-        name: 'Nutrition Potential Ability',
+        name: 'Nutrition/Reduce Hunger Duration Potential Ability',
         target: 'limit',
         matcher: /Nutrition/i
     },
@@ -1448,9 +1478,15 @@ window.matchers = [
     },
     
     {
+        name: 'Buff Activated Support',
+        target: 'support',
+        matcher: /when (the|an) enemy (gains|applies)/i
+    },
+    
+    {
         name: 'Debuff Activated Support',
         target: 'support',
-        matcher: /when an enemy inflicts/i
+        matcher: /when (the|an) enemy inflicts/i
     },
     
     {
@@ -1619,6 +1655,12 @@ window.matchers = [
         name: 'Delayers',
         target: 'support',
         matcher: /delays/i
+    },
+
+    {
+        name: 'Poisoners',
+        target: 'support',
+        matcher: /(poisons|Inflicts Toxic)/i
     },
 
     {
