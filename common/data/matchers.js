@@ -269,6 +269,12 @@ window.matchers = [
     },
     
     {
+        name: 'Health cutters',
+        target: 'captain',
+        matcher: /Cuts.+current HP.+enem/i
+    },
+
+    {
         name: 'Beli Boosters',
         target: 'captain',
         matcher: /boosts.+Beli/i
@@ -435,7 +441,7 @@ window.matchers = [
     {
         name: 'Poison Status ATK boosters',
         target: 'special',
-        matcher: /(Boosts ATK.+against.+(poisoned|strongly poisoned).+enemies|Boosts ATK.+against.+enemies.+inflicted with Toxic)/i
+        matcher: /Boosts ATK.+against.+?((strongly )?poisoned.+enemies|enemies.+inflicted with ((strong )?poison|Toxic))/i
     },
     
     {
@@ -463,9 +469,15 @@ window.matchers = [
     },
 
     {
-        name: 'Following-turn Buff Enabler',
+        name: 'Following-turn Buff/Debuff Enabler',
         target: 'special',
-        matcher: /(Following the activation|If during that turn)/i
+        matcher: /(Following the activation|If during that turn|After \d+ turn)/i
+    },
+
+    {
+        name: 'After-turn Buff/Debuff Enabler',
+        target: 'special',
+        matcher: /(After \d+ turn)/i
     },
 
     {
@@ -1270,7 +1282,7 @@ window.matchers = [
     },
     
     {
-        name: 'Full-board Premptive Orb Controllers',
+        name: 'Full-board Preemptive Orb Controllers',
         target: 'sailor',
         matcher: /Changes all orbs into/i
     },
@@ -1570,7 +1582,7 @@ window.matchers = [
     {
         name: 'Poison Status ATK boosters',
         target: 'support',
-        matcher: /(Boosts ATK.+against.+(poisoned|strongly poisoned).+enemies|Boosts ATK.+against.+enemies.+inflicted with Toxic)/i
+        matcher: /Boosts ATK.+against.+?((strongly )?poisoned.+enemies|enemies.+inflicted with ((strong )?poison|Toxic))/i
     },
 
     {

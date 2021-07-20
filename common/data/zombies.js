@@ -424,6 +424,9 @@ window.zombies = {
         type: 'healer',
         multiplier: 1.5
     },
+    1619: { // Rayleigh
+        type: 'healer',
+    },
     1661: { // Corazon
         type: 'healer',
         amount: 300
@@ -1010,6 +1013,12 @@ window.zombies = {
     3282: { // Moria
         type: 'healer',
     },
+    3390: { // Toki
+        type: 'healer',
+    },
+    3391: { // Toki
+        type: 'healer',
+    },
     5001: { // Smoker/Tashigi
         type: 'healer',
         amount: 300
@@ -1244,5 +1253,11 @@ window.zombies = {
     5324: { // FireTank
         type: 'healer',
         multiplier: 5
+    },
+    5338: { // VSShanks
+        type: 'healer',
+    },
+    5340: { // VSShanks
+        type: 'healer',
     },
 };

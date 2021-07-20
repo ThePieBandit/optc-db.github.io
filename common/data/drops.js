@@ -1023,7 +1023,7 @@ window.drops = {
         },
 
         {
-            name: 'Land of Wano - Kuri',
+            name: 'Land of Wano: Kuri',
             dropID: 'story44',
             shortName: 'Wano 1',
             thumb: 2780,
@@ -2381,7 +2381,7 @@ window.drops = {
             thumb: 1812,
             global: true,
             nakama: 2181200,
-            condition: 'Powerhouse Characters recieves a 99 turn paralysis and a 90% ATK down from stage 4 onwards on 15 and 30 stamina',
+            condition: 'Powerhouse Characters receive a 99 turn paralysis and a 90% ATK down from stage 4 onwards on 15 and 30 stamina',
             gamewith: 71416,
             'All Difficulties': [ 1811, 1809, -1240, -1575, -1658, -1232, -1238, -1117, -522, -1119, -524, -1504, -1503, -2034 ],
         },
@@ -3354,7 +3354,7 @@ window.drops = {
             global: true,
             nakama: 4182600,
             gamewith: 73951,
-            condition: '1 Master version and 3 different Ultimate versions with different conditions. Master: Shooter/Striker/Slaher Only. Ultimate: Shooter Only, Striker Only, and Slasher Only',
+            condition: '1 Master version and 3 different Ultimate versions with different conditions. Master: Shooter/Striker/Slasher Only. Ultimate: Shooter Only, Striker Only, and Slasher Only',
             Ultimate: [ 1825 ],
             Master: [ 1825 ],
         },
@@ -3906,8 +3906,9 @@ window.drops = {
             name: 'Clash!! Luffytaro',
             dropID: 'clash67',
             thumb: 3209,
-            nakama: null,
-            gamewith: null,
+            global: true,
+            nakama: 4320900,
+            gamewith: 249000,
             'All Difficulties': [ 3209 ],
         },
 
@@ -3915,8 +3916,9 @@ window.drops = {
             name: 'Clash!! Marco',
             dropID: 'clash68',
             thumb: 3263,
-            nakama: null,
-            gamewith: null,
+            global: true,
+            nakama: 4326300,
+            gamewith: 263248,
             'All Difficulties': [ 3263 ],
         },
 
@@ -3924,8 +3926,9 @@ window.drops = {
             name: 'Clash!? Shambles! Straw Hat Pirates',
             dropID: 'clash69',
             thumb: 3289,
-            nakama: null,
-            gamewith: null,
+            global: true,
+            nakama: 4328900,
+            gamewith: 266441,
             'All Difficulties': [ 3288, 3289, 3290, 3291 ],
         },
 
@@ -3935,21 +3938,22 @@ window.drops = {
             thumb: 3331,
             global: true,
             nakama: 4337000,
-            gamewith: null,
+            gamewith: 274482,
             Expert: [ 3331 ],
             Ultimate: [ 3331 ],
         },
 
         {
-            name: 'Co-op!! Local Sea Monster',
-            thumb: 4998,
+            name: 'Clash!! Local Sea Monster',
+            dropID: 'clash71',
+            thumb: 3383,
             global: true,
             nakama: 6338200,
             gamewith: null,
             condition: 'Drops Manual, Tomes, Proof of Friendship, lobster and limit break bottles.',
             showManual: true,
-            'Chopperman Missions': [ 4998 ],
-            'All Difficulties': [ -4998 ],
+            'Chopperman Missions': [ 3383 ],
+            'All Difficulties': [ -3383 ],
         },
 
     ],
@@ -5417,20 +5421,22 @@ window.drops = {
         },
         
         {
-            name: 'X Drake',
+            name: 'Animal Kingdom Pirates, Tobi Roppo',
             thumb: 3210,
             showManual: true,
-            nakama: 321000,
+            global: true,
+            nakama: 10321000,
             gamewith: 249370,
             'All Difficulties': [ 3210, -3210 ],
         },
         
         {
-            name: 'Bonekichi',
+            name: 'The Ghostly Skeletal Apparition',
             thumb: 3235,
             showManual: true,
-            nakama: null,
-            gamewith: null,
+            global: true,
+            nakama: 10323500,
+            gamewith: 253758,
             'All Difficulties': [ 3235, -3235 ],
         },
         
@@ -5438,8 +5444,9 @@ window.drops = {
             name: 'Kawamatsu',
             thumb: 3269,
             showManual: true,
-            nakama: null,
-            gamewith: null,
+            global: true,
+            nakama: 10326900,
+            gamewith: 259805,
             'All Difficulties': [ 3269, -3269 ],
         },
         
@@ -5447,8 +5454,8 @@ window.drops = {
             name: 'Sanjuan Wolf',
             thumb: 3293,
             showManual: true,
-            nakama: null,
-            gamewith: null,
+            nakama: 10329300,
+            gamewith: 267166,
             'All Difficulties': [ 3293, -3293 ],
         },
         
@@ -5456,9 +5463,27 @@ window.drops = {
             name: 'Shinobu',
             thumb: 3329,
             showManual: true,
+            nakama: 10332900,
+            gamewith: 275012,
+            'All Difficulties': [ 3329, -3329 ],
+        },
+        
+        {
+            name: 'Mihawk',
+            thumb: 3361,
+            showManual: true,
             nakama: null,
             gamewith: null,
-            'All Difficulties': [ 3329, -3329 ],
+            'All Difficulties': [ 3361, -3361 ],
+        },
+        
+        {
+            name: 'Ashura Doji',
+            thumb: 3385,
+            showManual: true,
+            nakama: null,
+            gamewith: null,
+            'All Difficulties': [ 3385, -3385 ],
         },
 
     ],
@@ -5870,6 +5895,7 @@ window.drops = {
             name: 'Komurasaki',
             dropID: 'treasuremap41',
             thumb: 3217,
+            global: true,
             nakama: 8321700,
             gamewith: 251248,
             'Coast of Wano': [ 3217 ]
@@ -5879,6 +5905,7 @@ window.drops = {
             name: 'Queen',
             dropID: 'treasuremap42',
             thumb: 3239,
+            global: true,
             nakama: 8323900,
             gamewith: 254943,
             'Coast of Wano': [ 3239 ]
@@ -5888,9 +5915,10 @@ window.drops = {
             name: 'Luffy & Ace',
             dropID: 'treasuremap43',
             thumb: 3273,
+            global: true,
             nakama: 8327300,
             gamewith: 260519,
-            'Coast of Wano': [ 3273 ]
+            'Ragin Swa': [ 3273 ]
         },
 
         {
@@ -5909,6 +5937,15 @@ window.drops = {
             nakama: null,
             gamewith: null,
             'Coast of Wano': [ 3339 ]
+        },
+
+        {
+            name: 'MUGIWARA Zoro',
+            dropID: 'treasuremap46',
+            thumb: 3368,
+            nakama: null,
+            gamewith: null,
+            'Coast of Wano': [ 3368 ]
         },
 
     ],
@@ -6030,7 +6067,8 @@ window.drops = {
             name: 'Ambush! Kamazo',
             dropID: 'ambush9',
             thumb: 3229,
-            nakama: 314500,
+            global: true,
+            nakama: 6322900,
             gamewith: 252960,
             condition: 'Has a chance of appearing at the end of Please Help The Swordsmen!!.',
             'Chopperman Missions': [ 3222, 3223 ],
@@ -6214,6 +6252,7 @@ window.drops = {
             name: 'Onami & Orobi',
             dropID: 'bond17',
             thumb: 3213,
+            global: true,
             nakama: 9321300,
             gamewith: 148537,
             'All Difficulties': [ 3213 ],
@@ -6224,6 +6263,7 @@ window.drops = {
             name: 'King',
             dropID: 'bond18',
             thumb: 3241,
+            global: true,
             nakama: 9324100,
             gamewith: 148537,
             'All Difficulties': [ 3241 ],
@@ -6234,6 +6274,7 @@ window.drops = {
             name: 'Doflamingo',
             dropID: 'bond19',
             thumb: 3276,
+            global: true,
             nakama: 9327600,
             gamewith: 148537,
             'All Difficulties': [ 3276 ],
@@ -6258,6 +6299,26 @@ window.drops = {
             gamewith: null,
             'All Difficulties': [ 3351 ],
             'Kizuna Exchange': [ 9044, 9045 ],
+        },
+
+        {
+            name: 'MUGIWARA Brook',
+            dropID: 'bond22',
+            thumb: 3373,
+            nakama: null,
+            gamewith: null,
+            'All Difficulties': [ 3373 ],
+            'Kizuna Exchange': [ 9046 ],
+        },
+
+        {
+            name: 'Jack',
+            dropID: 'bond23',
+            thumb: 3397,
+            nakama: null,
+            gamewith: null,
+            'All Difficulties': [ 3396 ],
+            'Kizuna Exchange': [ 9047, 9048 ],
         },
 
     ],
@@ -6346,26 +6407,39 @@ window.drops = {
         },
 
         {
-            name: 'Round Nine',
+            name: 'Plan-Sabotaging Headliner',
             dropID: 'piratefestival9',
             thumb: 3208,
+            global: true,
             nakama: null,
             gamewith: 196547,
             'All Difficulties': [ 3208 ],
         },
 
         {
-            name: 'Round Ten',
+            name: 'Unexpected Champion',
             dropID: 'piratefestival10',
             thumb: 3233,
+            global: true,
             nakama: null,
             gamewith: 196547,
             'All Difficulties': [ 3233 ],
+            'Global': [ 3208 ],
         },
 
         {
-            name: 'Round Eleven',
+            name: 'Pride of the Under Warden',
             dropID: 'piratefestival11',
+            thumb: 3251,
+            global: true,
+            nakama: null,
+            gamewith: 196547,
+            'All Difficulties': [ 3251 ],
+        },
+
+        {
+            name: 'Round Twelve',
+            dropID: 'piratefestival12',
             thumb: 3285,
             nakama: null,
             gamewith: 196547,
@@ -6373,12 +6447,21 @@ window.drops = {
         },
 
         {
-            name: 'Round Twelve',
-            dropID: 'piratefestival12',
+            name: 'Round Thirteen',
+            dropID: 'piratefestival13',
             thumb: 3332,
             nakama: null,
-            gamewith: null,
+            gamewith: 196547,
             'All Difficulties': [ 3332 ],
+        },
+
+        {
+            name: 'Round Fourteen',
+            dropID: 'piratefestival14',
+            thumb: 3374,
+            nakama: null,
+            gamewith: 196547,
+            'All Difficulties': [ 3374 ],
         },
 
     ],
@@ -6635,6 +6718,23 @@ window.drops = {
         },
 
         {
+            name: 'Battle Blitz! Girls of Summer Paradise',
+            thumb: 2626,
+            global: true,
+            nakama: 6262600,
+            gamewith: 158510,
+            'Chopperman Missions': [ 2627 ],
+        },
+
+        {
+            name: 'Blitz Battle: Four Emperors',
+            thumb: 2734,
+            global: true,
+            nakama: 6273400,
+            gamewith: 173429,
+        },
+
+        {
             name: 'Face Off! Akainu vs Aokiji',
             thumb: 2023,
             global: true,
@@ -6663,37 +6763,20 @@ window.drops = {
         },
 
         {
+            name: 'Face Off! Seven Warlords of the Sea',
+            thumb: 3246,
+            global: true,
+            nakama: 6324600,
+            gamewith: 256375,
+            'Chopperman Missions': [ 3247 ],
+        },
+
+        {
             name: 'The Tea Party From Hell',
             thumb: 3079,
             global: true,
             gamewith: null,
             'Chopperman Missions': [ 3086 ],
-        },
-
-        {
-            name: 'Battle Blitz! Girls of Summer Paradise',
-            thumb: 2626,
-            global: true,
-            nakama: 6262600,
-            gamewith: 158510,
-            'Chopperman Missions': [ 2627 ],
-        },
-
-        {
-            name: 'Blitz Battle: Four Emperors',
-            thumb: 2734,
-            global: true,
-            nakama: 6273400,
-            gamewith: 173429,
-        },
-
-        {
-            name: 'Blitz Battle: Seven Warlords',
-            thumb: 3246,
-            global: true,
-            nakama: null,
-            gamewith: null,
-            'Chopperman Missions': [ 3247 ],
         },
 
         {
@@ -7193,19 +7276,45 @@ window.drops = {
         },
 
         {
-            name: 'Please Help The Swordsmen!!',
-            thumb: 3231,
+            name: 'Escape Cacao Island',
+            thumb: 2121,
+            global: true,
             nakama: null,
+            gamewith: null,
+            condition: "Chopperman Mission: Complete with [PSY] units only. Complete with Sanji, Pudding and Bege. Complete with Jinbe, Carrot and Chopper.",
+        },
+
+        {
+            name: 'Dear Swordsmen, Please Help Us!',
+            thumb: 3017,
+            showManual: true,
+            global: true,
+            nakama: 6323100,
             gamewith: 252958,
             'Chopperman Missions': [ 3222, 3223 ],
+            'All Difficulties': [ -3222, -3223, -3225, -3227, -3229, -3231 ],
+        },
+
+        {
+            name: 'End of an Era',
+            thumb: 3262,
+            showManual: true,
+            global: true,
+            nakama: null,
+            gamewith: 252958,
+            'Chopperman Missions': [ 3262 ],
+            'All Difficulties': [ -3242, -3245, -3253, -3255, -3257, -3259, -3261, -3262 ],
         },
 
         {
             name: 'Pirate Paradise!!',
             thumb: 3280,
+            showManual: true,
+            global: true,
             nakama: null,
             gamewith: null,
             'Chopperman Missions': [ 3286, 3287 ],
+            'All Difficulties': [ -3274, -3278, -3280, -3282, -3283, -3284, -3286, -3287, 3287 ],
         },
 
         {
@@ -7220,17 +7329,25 @@ window.drops = {
             name: 'Now to Onigashima!',
             thumb: 3346,
             nakama: null,
-            gamewith: null,
+            gamewith: 276764,
             'Chopperman Missions': [ 3346 ],
         },
 
         {
-            name: 'Escape Cacao Island',
-            thumb: 2121,
-            global: true,
+            name: 'Duel at Banaro Island',
+            thumb: 3353,
+            nakama: null,
+            gamewith: 280282,
+            'Chopperman Missions': [ 3353 ],
+        },
+
+        {
+            name: 'Onigashima Assault Strategy',
+            thumb: 3382,
             nakama: null,
             gamewith: null,
-            condition: "Chopperman Mission: Complete with [PSY] units only. Complete with Sanji, Pudding and Bege. Complete with Jinbe, Carrot and Chopper.",
+            'All Difficulties': [ 3382 ],
+            'Chopperman Missions': [ 3382 ],
         },
 
         {
