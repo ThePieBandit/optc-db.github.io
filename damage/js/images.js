@@ -3,7 +3,7 @@
 var app = angular.module('optc');
 
 var BOX_COLORS = { STR: 'salmon', QCK: 'lightskyblue', DEX: 'lightgreen', PSY: 'gold', INT: 'orchid' };
-var ORB_COLORS = { STR: 'orangered', QCK: 'dodgerblue', DEX: 'lightgreen', PSY: 'gold', INT: 'orchid', G: 'orange', S: 'orangered', Q: 'dodgerblue', D: 'lightgreen', P: 'gold', I: 'orchid', RAINBOW: 'pink', MEAT: 'darkgoldenrod', WANO: 'orangered', SUPERBOMB: 'orangered' };
+var ORB_COLORS = { STR: 'orangered', QCK: 'dodgerblue', DEX: 'lightgreen', PSY: 'gold', INT: 'orchid', G: 'orange', S: 'orangered', Q: 'dodgerblue', D: 'lightgreen', P: 'gold', I: 'orchid', RAINBOW: 'pink', MEAT: 'darkgoldenrod', TND: 'brown', WANO: 'orangered', SUPERBOMB: 'orangered' };
 
 var lock = new Image(), silence = new Image();
 lock.src = 'res/chain.png';
@@ -15,7 +15,7 @@ app.controller('ImageGeneratorCtrl', function($scope, $filter, $timeout) {
 
     var canvas = $('#canvas')[0];
     var context = canvas.getContext('2d');
-    
+
     context.fillStyle = 'white';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -84,7 +84,7 @@ app.controller('ImageGeneratorCtrl', function($scope, $filter, $timeout) {
                 if (orb != 1.0) {
                     var gradient = context.createRadialGradient(baseX + 20, baseY + 21, 13, baseX + 22, baseY + 22, 35);
                     if (orb < 1) gradient.addColorStop(0.1, ORB_COLORS[Utils.getOppositeType(unit.type)]);
-                    else gradient.addColorStop(0.1, ORB_COLORS[orb == 'g' ? 'G' : orb == 'str' ? 'STR' : orb == 'dex' ? 'DEX' : orb == 'qck' ? 'QCK' : orb == 'psy' ? 'PSY' : orb == 'int' ? 'INT' : orb == 'rainbow' ? 'RAINBOW' : orb == 'meat' ? 'MEAT' : orb == 'wano' ? 'WANO' : orb == 'empty' ? 'EMPTY' : orb == 'superbomb' ? 'SUPERBOMB' : unit.type]);
+                    else gradient.addColorStop(0.1, ORB_COLORS[orb == 'g' ? 'G' : orb == 'str' ? 'STR' : orb == 'dex' ? 'DEX' : orb == 'qck' ? 'QCK' : orb == 'psy' ? 'PSY' : orb == 'int' ? 'INT' : orb == 'rainbow' ? 'RAINBOW' : orb == 'meat' ? 'MEAT' : orb == 'tnd' ? 'TND' : orb == 'wano' ? 'WANO' : orb == 'empty' ? 'EMPTY' : orb == 'superbomb' ? 'SUPERBOMB' : unit.type]);
                     if (orb < 1) gradient.addColorStop(0.2, 'black');
                     else {
                         gradient.addColorStop(0.2, 'white');
@@ -94,7 +94,7 @@ app.controller('ImageGeneratorCtrl', function($scope, $filter, $timeout) {
                     gradient.addColorStop(1.0, 'transparent');
                     context.fillStyle = gradient;
                     context.fillRect(0, 0, canvas.width, canvas.height);
-                    if (orb != 'g' && orb != 'str' && orb != 'dex' && orb != 'qck' && orb != 'psy' && orb != 'int' && orb != 'rainbow' && orb != 'meat' && orb != 'wano' && orb != 'empty' && orb != 'superbomb') {
+                    if (orb != 'g' && orb != 'str' && orb != 'dex' && orb != 'qck' && orb != 'psy' && orb != 'int' && orb != 'rainbow' && orb != 'meat' && orb != 'tnd' && orb != 'wano' && orb != 'empty' && orb != 'superbomb') {
                         var temp = (orb < 1 ? [ 'f0d7', baseX + 13, baseY + 31 ] : [ 'f0d8', baseX + 13, baseY + 28 ]);
                         awesome(context, { text: temp[0], style: '28px', color: 'white',
                             x: temp[1], y: temp[2], stroke: 'gray' });
@@ -139,16 +139,16 @@ app.controller('ImageGeneratorCtrl', function($scope, $filter, $timeout) {
                     type(context, { text: '+' + total, style: 'bold 14px "Open Sans"',
                         x: baseX + 40, y: baseY + 18, color: 'gold', stroke: 'black', strokeWidth: 3 });
                 }
-                
+
                 if (n >= 2 && window.sailors.hasOwnProperty(unit.number +1)) {
-                    awesome(context, { text: 'f13d', 
+                    awesome(context, { text: 'f13d',
                         x: baseX + 3, y: baseY + 105, color: 'gold', stroke: 'black', strokeWidth: 3 });
                 }
             };
-            image.src = Utils.getThumbnailUrl(unit.number + 1);
+            image.src = Utils.getThumbnailUrl(unit.number + 1, '..');
             //image.src = Utils.getGlobalThumbnailUrl(unit.number + 1);
             //image.onerror = function(){
-            //    image.src = Utils.getThumbnailUrl(unit.number + 1);
+            //    image.src = Utils.getThumbnailUrl(unit.number + 1, '..');
             //}
         });
     },true);
@@ -156,7 +156,7 @@ app.controller('ImageGeneratorCtrl', function($scope, $filter, $timeout) {
     baseX = 10; baseY = 85;
 
 	if($scope.numbers.healPerTurn) baseY +=25;
-	
+
     if ($scope.data.effect) {
         awesome(context, { text: 'f02d', x: baseX + 8, y: baseY + 20, align: 'center', color: 'darkorchid' });
         type(context, { text: $scope.data.effect, x: baseX + 25, y: baseY + 20, maxWidth: 155, truncate: true, color: 'darkorchid' });
@@ -190,6 +190,14 @@ app.controller('ImageGeneratorCtrl', function($scope, $filter, $timeout) {
         baseY += 25;
     }
 
+    // basehp counter
+    if ($scope.tdata.basehpCounter.enabled) {
+        awesome(context, { text: 'f162', x: baseX + 8, y: baseY + 20, align: 'center' });
+        var basehps = $scope.tdata.basehpCounter.value;
+        type(context, { text: basehps + (basehps == 1 ? ' Health Point' : ' Health Points') + ' added', x: baseX + 25, y: baseY + 20 });
+        baseY += 25;
+    }
+
     // rcv counter
     if ($scope.tdata.rcvCounter.enabled) {
         awesome(context, { text: 'f162', x: baseX + 8, y: baseY + 20, align: 'center' });
@@ -211,6 +219,30 @@ app.controller('ImageGeneratorCtrl', function($scope, $filter, $timeout) {
         awesome(context, { text: 'f162', x: baseX + 8, y: baseY + 20, align: 'center' });
         var heals = $scope.tdata.damageCounter.value;
         type(context, { text: heals + (heals == 1 ? ' Health Point' : ' Health Points') + ' lost since special was activated', x: baseX + 25, y: baseY + 20 });
+        baseY += 25;
+    }
+    
+    // damage reduction counter
+    if ($scope.tdata.dmgreductionCounter.enabled) {
+        awesome(context, { text: 'f162', x: baseX + 8, y: baseY + 20, align: 'center' });
+        var dmgreductions = $scope.tdata.dmgreductionCounter.value;
+        type(context, { text: dmgreductions + '% Damage Reduction', x: baseX + 25, y: baseY + 20 });
+        baseY += 25;
+    }
+    
+    // carry chain counter
+    if ($scope.tdata.carrychainCounter.enabled) {
+        awesome(context, { text: 'f162', x: baseX + 8, y: baseY + 20, align: 'center' });
+        var carrychains = $scope.tdata.carrychainCounter.value;
+        type(context, { text: carrychains + 'x Chain Value in last turn', x: baseX + 25, y: baseY + 20 });
+        baseY += 25;
+    }
+    
+    // debuff counter
+    if ($scope.tdata.debuffCounter.enabled) {
+        awesome(context, { text: 'f162', x: baseX + 8, y: baseY + 20, align: 'center' });
+        var debuffs = $scope.tdata.debuffCounter.value;
+        type(context, { text: debuffs + ' Debuff{{debuffs!=1 ? `s` : ``}} applied to the enemy', x: baseX + 25, y: baseY + 20 });
         baseY += 25;
     }
 

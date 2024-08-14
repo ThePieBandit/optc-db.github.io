@@ -45,7 +45,7 @@ window.onload = function() {
     
     //Add new Units with Pics here so they show up in the Updates
     //7 Units are about the Max you can add, otherwise you would need to implement another tr for them
-    var newUnits = [ 3310, 3309, 3308, 3307, 3305, 3304, 3303 ];
+    var newUnits = [ 3520, 3519, 3518, 3517, 3516, 3515, 3513 ];
 
     for (var i = 0, len = newUnits.length; i < len; i++) {
         var unit = document.createElement("a");
@@ -53,8 +53,8 @@ window.onload = function() {
         unit.className = "slot small";
         unit.target = "_blank";
         unit.title = window.units[newUnits[i]-1][0];
-        unit.style = "background-image: url("+Utils.getThumbnailUrl(newUnits[i])+");";
-        //unit.style = "background-image: url("+Utils.getGlobalThumbnailUrl(newUnits[i])+"), url("+Utils.getThumbnailUrl(newUnits[i])+");";
+        unit.style = "background-image: url("+Utils.getThumbnailUrl(newUnits[i], '.')+");";
+        //unit.style = "background-image: url("+Utils.getGlobalThumbnailUrl(newUnits[i])+"), url("+Utils.getThumbnailUrl(newUnits[i], '..')+");";
         
         document.getElementById("newUnits").appendChild(unit);
     }

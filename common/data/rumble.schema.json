@@ -59,6 +59,48 @@
                 "japan": {
                   "$ref": "#/definitions/Unit"
                 },
+                "gpability": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Ability"
+                    },
+                    "minItems": 5,
+                    "maxItems": 5
+                },
+                "gpspecial": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/GPSpecial"
+                    },
+                    "minItems": 5,
+                    "maxItems": 5
+                },
+                "llbability": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Ability"
+                    },
+                    "minItems": 5,
+                    "maxItems": 5
+                },
+                "llbresilience": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                        { "$ref": "#/definitions/DebuffResilience" },
+                        { "$ref": "#/definitions/DamageResilience" },
+                        { "$ref": "#/definitions/HealingResilience" }
+                    ]
+                  }
+                },
+                "llbspecial": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Special"
+                    },
+                    "minItems": 10,
+                    "maxItems": 10
+                },
                 "pattern": {
                     "type": "array",
                     "items": {
@@ -130,6 +172,9 @@
                 "stat": {
                     "$ref": "#/definitions/Attribute"
                 },
+                "families": {
+                    "type": "array"
+                },
                 "type": {
                     "$ref": "#/definitions/ConditionType"
                 },
@@ -138,6 +183,9 @@
                 },
                 "count": {
                     "type": "integer"
+                },
+                "relative": {
+                    "type": "boolean"
                 }
             },
             "required": [
@@ -231,6 +279,26 @@
             ],
             "title": "DamageResilience"
         },
+        "DamageBoostResilience": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "attribute": {
+                    "$ref": "#/definitions/Damage"
+                },
+                "amount": {
+                    "type": "number"
+                },
+                "type":{
+                  "const": "dmgboost"
+                }
+            },
+            "required": [
+                "type",
+                "amount"
+            ],
+            "title": "DamageBoostResilience"
+        },
         "HealingResilience": {
             "type": "object",
             "additionalProperties": false,
@@ -278,6 +346,29 @@
             ],
             "title": "Special"
         },
+        "GPSpecial": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "uses": {
+                    "type": "integer"
+                },
+                "effects": {
+                    "type": "array",
+                    "items": {
+                        "oneOf": [
+                            { "$ref": "#/definitions/Effect" },
+                            { "$ref": "#/definitions/EffectOverride" }
+                        ]
+                    }
+                }
+            },
+            "required": [
+                "uses",
+                "effects"
+            ],
+            "title": "GPSpecial"
+        },
         "Effect": {
             "type": "object",
             "additionalProperties": {
@@ -308,7 +399,21 @@
                 "amount": {
                     "type": "number"
                 },
+                "amountrange": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                },
+                "interval": {
+                    "type": "number"
+                },
                 "level": {
+                    "type": "integer"
+                },
+                "repeat": {
                     "type": "integer"
                 },
                 "range": {
@@ -318,6 +423,9 @@
                     "$ref": "#/definitions/Condition"
                 },
                 "defbypass": {
+                    "type": "boolean"
+                },
+                "leader": {
                     "type": "boolean"
                 }
             },
@@ -379,7 +487,13 @@
                         "amount": {
                             "type": "number"
                         },
+                        "interval": {
+                            "type": "number"
+                        },
                         "level": {
+                            "type": "integer"
+                        },
+                        "repeat": {
                             "type": "integer"
                         },
                         "range": {
@@ -389,6 +503,9 @@
                             "$ref": "#/definitions/Condition"
                         },
                         "defbypass": {
+                            "type": "boolean"
+                        },
+                        "leader": {
                             "type": "boolean"
                         }
                     }
@@ -430,6 +547,12 @@
                     "$ref": "#/definitions/Attribute"
                 },
                 "targets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TargetElement"
+                    }
+                },
+                "excludes": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/TargetElement"
@@ -476,9 +599,18 @@
                 "Damage Over Time",
                 "Action Bind",
                 "Half Stats",
+                "Half ATK",
+                "Half DEF",
                 "Haste",
                 "Counter",
-                "near"
+                "Revive",
+                "Shield",
+                "Confusion",
+                "hit",
+                "takes damage",
+                "heal",
+                "near",
+                "all"
             ],
             "title": "Attribute"
         },
@@ -497,6 +629,7 @@
                 "Cerebral",
                 "Free Spirit",
                 "Driven",
+                "Powerhouse",
                 "all"
             ],
             "title": "Damage"
@@ -505,6 +638,7 @@
             "type": "string",
             "enum": [
                 "above",
+                "exactly",
                 "below",
                 "remaining",
                 "first",
@@ -522,7 +656,8 @@
                 "crew",
                 "enemies",
                 "trigger",
-                "defeat"
+                "defeat",
+                "character"
             ],
             "title": "ConditionType"
         },
@@ -543,7 +678,8 @@
                 "damage",
                 "recharge",
                 "boon",
-                "penalty"
+                "penalty",
+                "cleanse"
             ],
             "title": "EffectEnum"
         },
@@ -637,7 +773,8 @@
                 "highest",
                 "lowest",
                 "above",
-                "below"
+                "below",
+                "exactly"
             ],
             "title": "TargetingPriority"
         },
@@ -657,7 +794,9 @@
                 "fixed",
                 "cut",
                 "atk",
-                "time"
+                "atkbase",
+                "time",
+                "random"
             ],
             "title": "AttackEffectType"
         },

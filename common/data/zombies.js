@@ -424,6 +424,9 @@ window.zombies = {
         type: 'healer',
         multiplier: 1.5
     },
+    1619: { // Rayleigh
+        type: 'healer',
+    },
     1661: { // Corazon
         type: 'healer',
         amount: 300
@@ -1010,6 +1013,138 @@ window.zombies = {
     3282: { // Moria
         type: 'healer',
     },
+    3390: { // Toki
+        type: 'healer',
+    },
+    3391: { // Toki
+        type: 'healer',
+    },
+    3421: { // Lucci
+        type: 'healer',
+    },
+    3422: { // Lucci
+        type: 'healer',
+    },
+    3467: { // Robin
+        type: 'healer',
+    },
+    3482: { // Croc
+        type: 'healer',
+    },
+    3483: { // Croc
+        type: 'healer',
+    },
+    3525: { // Ivankov
+        type: 'healer',
+        amount: 800
+    },
+    3545: { // Pekoms
+        type: 'healer',
+        amount: 800
+    },
+    3548: { // Miyagi&Tristan
+        type: 'healer',
+        multiplier: 3
+    },
+    3551: { // Chopper
+        type: 'healer',
+        amount: 3000
+    },
+    3559: { // Oniwabanshu
+        type: 'healer',
+        multiplier: 2
+    },
+    3568: { // Komurasaki
+        type: 'healer',
+    },
+    3577: { // Robin
+        type: 'healer',
+        multiplier: 2
+    },
+    3578: { // Sanji
+        type: 'healer',
+        amount: 300
+    },
+    3598: { // Perospero
+        type: 'healer',
+        amount: 1000
+    },
+    3599: { // Pudding
+        type: 'reducer',
+        multiplier: 0.7,
+        threshold: 1.0
+    },
+    3661: { // Chopper
+        type: 'healer',
+        amount: 800
+    },
+    3675: { // Hiyori
+        type: 'healer',
+    },
+    3676: { // Hiyori
+        type: 'healer',
+    },
+    3681: { // Chopper
+        type: 'healer',
+        amount: 4000
+    },
+    3682: { // Chopper
+        type: 'healer',
+        amount: 4000
+    },
+    3685: { // Robin
+        type: 'healer',
+        multiplier: 5
+    },
+    3714: { // Robin
+        type: 'healer',
+        amount: 800
+    },
+    3715: { // Nami
+        type: 'healer',
+        multiplier: 3
+    },
+    3751: { // Orochi
+        type: 'healer',
+    },
+    3752: { // Orochi
+        type: 'healer',
+    },
+    3768: { // Otama
+        type: 'healer',
+        multiplier: 2
+    },
+    3776: { // Chopper
+        type: 'healer',
+        multiplier: 3
+    },
+    3779: { // Boa Hancock
+        type: 'healer',
+        amount: 2000
+    },
+    3780: { // Boa Hancock
+        type: 'healer',
+        amount: 2000
+    },
+    3863: { // Urouge
+        type: 'healer',
+    },
+    3893: { // Chopper
+        type: 'healer',
+        amount: 2000
+    },
+    3966: { // Reiju
+        type: 'healer',
+        multiplier: 3
+    },
+    3967: { // Reiju
+        type: 'healer',
+        multiplier: 3
+    },
+    3976: { // Tama
+        type: 'healer',
+        amount: 6000
+    },
     5001: { // Smoker/Tashigi
         type: 'healer',
         amount: 300
@@ -1244,5 +1379,67 @@ window.zombies = {
     5324: { // FireTank
         type: 'healer',
         multiplier: 5
+    },
+    5338: { // VSShanks
+        type: 'healer',
+    },
+    5340: { // VSShanks
+        type: 'healer',
+    },
+    5381: { // SHP
+        type: 'healer',
+        amount: 1000
+    },
+    5382: { // SHP
+        type: 'healer',
+        amount: 1000
+    },
+    5383: { // SHP
+        type: 'healer',
+        amount: 2000
+    },
+    5384: { // SHP
+        type: 'healer',
+        amount: 2000
+    },
+    5385: { // SHP
+        type: 'healer',
+        amount: 1000
+    },
+    5386: { // SHP
+        type: 'healer',
+        amount: 1000
+    },
+    5387: { // SHP
+        type: 'healer',
+        amount: 2000
+    },
+    5388: { // SHP
+        type: 'healer',
+        amount: 2000
+    },
+    5512: { // Nami Carrot
+        type: 'healer',
+        multiplier: 1
+    },
+    5514: { // Nami Carrot
+        type: 'healer',
+        multiplier: 2
+    },
+    5515: { // Nami Carrot
+        type: 'healer',
+        multiplier: 2
+    },
+    5516: { // Nami Carrot
+        type: 'healer',
+        multiplier: 1
+    },
+    5518: { // Nami Carrot
+        type: 'healer',
+        multiplier: 2
+    },
+    5519: { // Nami Carrot
+        type: 'healer',
+        multiplier: 2
     },
 };

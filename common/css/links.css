@@ -15,7 +15,7 @@
 
 #links-button .btn {
     position: absolute;
-    top: 0;
+    top: -20px;
     left: 0;
     width: 100%;
     height: 100%;
@@ -52,12 +52,14 @@
     padding-top: 7px;
 }
 
-#links-button .btn:hover .fa, .rotater i {
-    color: rgba(0, 0, 0, 0.7);
-}
+@media (hover) {
+    #links-button .btn:hover .fa, .rotater i {
+        color: rgba(0, 0, 0, 0.7);
+    }
 
-.rotater:hover i, .rotater:hover i {
-    color: white !important;
+    .rotater:hover i, .rotater:hover i {
+        color: white !important;
+    }
 }
 
 #links-button .btn.trigger {
@@ -66,18 +68,20 @@
     cursor: pointer;
 }
 
-#links-button .btn.trigger:hover {
-    -webkit-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    transform: scale(1.2);
-}
+@media (hover) {
+    #links-button .btn.trigger:hover {
+        -webkit-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2);
+    }
 
-#links-button .btn.trigger:hover .line {
-    background-color: rgba(0, 0, 0, 0.7);
-}
+    #links-button .btn.trigger:hover .line {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
 
-#links-button .btn.trigger:hover .line:before, #links-button .btn.trigger:hover .line:after {
-    background-color: rgba(0, 0, 0, 0.7);
+    #links-button .btn.trigger:hover .line:before, #links-button .btn.trigger:hover .line:after {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
 }
 
 #links-button .btn.trigger .line {
@@ -143,7 +147,7 @@
     transform: translateX(-3em);
 }
 
-#links-button.active .rotater:nth-child(4) > a {
+#links-button.active .rotater:nth-child(2) > a {
     -webkit-transform: translateX(-6em);
     -ms-transform: translateX(-6em);
     transform: translateX(-6em);
@@ -155,19 +159,19 @@
     transform: translateX(-9em);
 }
 
-#links-button.active .rotater:nth-child(6) > a {
+#links-button.active .rotater:nth-child(4) > a {
     -webkit-transform: translateX(-12em);
     -ms-transform: translateX(-12em);
     transform: translateX(-12em);
 }
 
-#links-button.active .rotater:nth-child(2) > a {
+#links-button.active .rotater:nth-child(5) > a {
     -webkit-transform: translateX(-15em);
     -ms-transform: translateX(-15em);
     transform: translateX(-15em);
 }
 
-#links-button.active .rotater:nth-child(5) > a {
+#links-button.active .rotater:nth-child(6) > a {
     -webkit-transform: translateX(-18em);
     -ms-transform: translateX(-18em);
     transform: translateX(-18em);
@@ -204,27 +208,39 @@
 }
 
 #links-button.active .rotater:nth-child(12) > a {
-    -webkit-transform: translateX(-36em);
-    -ms-transform: translateX(-36em);
-    transform: translateX(-36em);
+    -webkit-transform: translateY(-3em);
+    -ms-transform: translateY(-3em);
+    transform: translateY(-3em);
 }
 
 #links-button.active .rotater:nth-child(13) > a {
-    -webkit-transform: translateY(0em);
-    -ms-transform: translateY(0em);
-    transform: translateY(0em);
+    -webkit-transform: translateY(-6em);
+    -ms-transform: translateY(-6em);
+    transform: translateY(-6em);
 }
 
 #links-button.active .rotater:nth-child(14) > a {
-    -webkit-transform: translateY(-4em);
-    -ms-transform: translateY(-4em);
-    transform: translateY(-4em);
+    -webkit-transform: translateY(-9em);
+    -ms-transform: translateY(-9em);
+    transform: translateY(-9em);
 }
 
 #links-button.active .rotater:nth-child(15) > a {
-    -webkit-transform: translateY(-8em);
-    -ms-transform: translateY(-8em);
-    transform: translateY(-8em);
+    -webkit-transform: translateY(-12em);
+    -ms-transform: translateY(-12em);
+    transform: translateY(-12em);
+}
+
+#links-button.active .rotater:nth-child(16) > a {
+    -webkit-transform: translateY(-15em);
+    -ms-transform: translateY(-15em);
+    transform: translateY(-15em);
+}
+
+#links-button.active .rotater:nth-child(17) > a {
+    -webkit-transform: translateY(-18em);
+    -ms-transform: translateY(-18em);
+    transform: translateY(-18em);
 }
 
 #link-damage > .btn { background: #85C1F5; }
@@ -241,18 +257,28 @@
 #link-supports > .btn { background: #2ECC71; }
 #link-turtles > .btn { background: #ce4500; }
 #link-es > .btn { background: linear-gradient(#ff0000 30%, #ffff00 30%, #ffff00 70%, #ff0000 30%); }
-#link-fr > .btn { background: linear-gradient(90deg, #002295 30%, #ffffff 30%, #ffffff 70%, #ff0000 30%); }
+#link-fr > .btn { background: url("https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"); background-size: 100%; background-position: center; }
+#link-de > .btn { background: url("https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg"); background-size: 200%; background-position: center; }
+#link-ko > .btn { background: url("https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_South_Korea.svg"); background-size: 120%; background-position: center; }
+#link-reddit > .btn { background: url("https://www.redditinc.com/assets/images/site/reddit-logo.png"); background-size: 100%; }
+#link-github > .btn { background: url("https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"); background-size: 100%; }
+#link-discord > .btn { background: url("https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png"); background-size: 120%; background-position: center; }
 
 .tip { color: black; }
 
-#links-button:not(.active) .tip,
-.rotater:not(:hover) .tip {
+#links-button:not(.active) .tip{
     display: none;
+}
+
+@media (hover) {
+    .rotater:not(:hover) .tip {
+        display: none;
+    }
 }
 
 .tip {
     position: absolute;
-    top: -2em;
+    top: -3em;
     left: 0;
     width: 130px;
     margin-left: -50px;
@@ -261,5 +287,7 @@
 }
 
 .top {
-    left: -1em;
+    top: -1em;
+    left: -6em;
+    text-align: right;
 }

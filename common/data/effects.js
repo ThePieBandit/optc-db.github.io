@@ -403,65 +403,56 @@ window.effects = {
         chainLimiter: function() { return 1.5; }
     },
 
-    'Treasure Map [Global]': {
-        description: 'Boost stats of characters, check in-game news for lists.',
-        thumb: 3197,
+    'Treasure Map [Worldwide]': {
+        description: 'Certain units boosted. See Drops Table & Character Table for details.',
+        thumb: 4128,
         id: 43, // don't change this
         atk: function(p) {
             var boost = 1;
             var id = p.number + 1;
-            if([ 3191 ].indexOf(id) != -1) boost = 3;
-            if([ 3192, 3190, 3164, 5287, 5288, 5289, 5290, 3166, 5295, 5296, 5297, 5298, 1387, 1388, 1389, 1446, 1447, 1448, 1549, 1550, 1551 ].indexOf(id) != -1) boost = 2.5;
-            if([ 3168, 3170, 3149, 3151, 3152, 3158, 3189, 3150, 3197, 3153, 3173, 3171, 3172, 2797, 3100, 3102, 3118, 5281, 3135, 5282, 3154, 3157, 3104, 3106, 3137, 3139, 3141, 3146, 3147, 3148, 603, 865, 1518, 1879, 2097, 2158, 2394, 2684, 2893, 2987, 3143, 1792, 1945, 2111, 2323, 2354, 2611, 2649, 2721, 2869, 2990, 3017, 3083, 3145, 1889, 1972, 2336, 2362, 2510, 2659, 2995, 3094, 3115, 3124, 3107, 3142, 3108, 3109, 3144, 2936, 2938, 2940, 2942, 2944, 2946, 2948, 2950, 2952, 2698, 1143, 2908, 3049, 848, 1650, 2044, 2087, 2521, 1808, 1853, 1916, 1941, 2000, 5012, 5013, 5014, 5015, 2064, 2109, 2137, 2175, 2211, 2261, 2299, 2387, 2443, 2469, 5062, 5063, 5064, 5065, 2557, 5140, 5141, 5142, 5143, 2583, 2618, 5176, 5177, 5178, 5179, 2690, 2729, 2763, 2792, 2823, 2850, 5210, 5211, 5212, 5213, 2879, 2913, 2977, 3022, 3060, 5263, 5264, 5265, 5266 ].indexOf(id) != -1) boost = 1.2;
+            if([ 4133, 4134, 4135, 4127, 4108, 4122, 4124, 4128, 5578, 5579, 5580, 5581, 5586, 5587, 5588, 5589 ].indexOf(id) != -1) boost = 2.5;
+            if([ 4125, 4126, 4132, 4119, 4120, 4118, 5571, 5572, 5573, 4089, 4068, 4067, 1853, 2000, 2583, 2659, 2995, 3197, 3297, 3491, 3527, 3758, 2977, 5012, 5013, 5014, 5015, 3364, 3462, 3483, 3523, 3543, 3563, 3641, 3735, 3775, 3861, 3933, 4003, 4050, 4071, 5393, 5394, 5395, 5396, 5516, 5517, 5518, 5519, 5551, 5552, 5553, 5554, 3688, 3687, 3686, 4004, 4005, 4111, 4112, 4113, 4094, 4093, 4092 ].indexOf(id) != -1) boost = 1.25;
+            if([ 2936, 2938, 2940, 2942, 2944, 2946, 2948, 2950, 2952, 3884, 3886, 603, 836, 1830, 1879, 2015, 5012, 2197, 2394, 3143, 3399, 1630, 1733, 2111, 2611, 3110, 3189, 3269, 3293, 3361, 3580, 4129, 5024, 887, 951, 765, 2056, 2088, 852, 2517, 1169, 5054, 5055, 5056, 5057 ].indexOf(id) != -1) boost = 1.2;
             return boost;
         },
         hp: function(p) {
             var boost = 1;
             var id = p.number + 1;
-            if([ 3191 ].indexOf(id) != -1) boost = 3;
-            if([ 3192, 3190, 3164, 5287, 5288, 5289, 5290, 3166, 5295, 5296, 5297, 5298, 1387, 1388, 1389, 1446, 1447, 1448, 1549, 1550, 1551 ].indexOf(id) != -1) boost = 2.5;
-            if([ 3168, 3170, 3149, 3151, 3152, 3158, 3189, 3150, 3197, 3153, 3173, 3171, 3172, 2797, 3100, 3102, 3118, 5281, 3135, 5282, 3154, 3157, 3104, 3106, 3137, 3139, 3141, 3146, 3147, 3148, 603, 865, 1518, 1879, 2097, 2158, 2394, 2684, 2893, 2987, 3143, 1792, 1945, 2111, 2323, 2354, 2611, 2649, 2721, 2869, 2990, 3017, 3083, 3145, 1889, 1972, 2336, 2362, 2510, 2659, 2995, 3094, 3115, 3124, 3107, 3142, 3108, 3109, 3144, 2936, 2938, 2940, 2942, 2944, 2946, 2948, 2950, 2952, 2698, 1143, 2908, 3049, 848, 1650, 2044, 2087, 2521, 1808, 1853, 1916, 1941, 2000, 5012, 5013, 5014, 5015, 2064, 2109, 2137, 2175, 2211, 2261, 2299, 2387, 2443, 2469, 5062, 5063, 5064, 5065, 2557, 5140, 5141, 5142, 5143, 2583, 2618, 5176, 5177, 5178, 5179, 2690, 2729, 2763, 2792, 2823, 2850, 5210, 5211, 5212, 5213, 2879, 2913, 2977, 3022, 3060, 5263, 5264, 5265, 5266 ].indexOf(id) != -1) boost = 1.2;
+            if([ 4133, 4134, 4135, 4127, 4108, 4122, 4124, 4128, 5578, 5579, 5580, 5581, 5586, 5587, 5588, 5589 ].indexOf(id) != -1) boost = 2.5;
+            if([ 4125, 4126, 4132, 4119, 4120, 4118, 5571, 5572, 5573, 4089, 4068, 4067, 1853, 2000, 2583, 2659, 2995, 3197, 3297, 3491, 3527, 3758, 2977, 5012, 5013, 5014, 5015, 3364, 3462, 3483, 3523, 3543, 3563, 3641, 3735, 3775, 3861, 3933, 4003, 4050, 4071, 5393, 5394, 5395, 5396, 5516, 5517, 5518, 5519, 5551, 5552, 5553, 5554, 3688, 3687, 3686, 4004, 4005, 4111, 4112, 4113, 4094, 4093, 4092 ].indexOf(id) != -1) boost = 1.25;
+            if([ 2936, 2938, 2940, 2942, 2944, 2946, 2948, 2950, 2952, 3884, 3886, 603, 836, 1830, 1879, 2015, 5012, 2197, 2394, 3143, 3399, 1630, 1733, 2111, 2611, 3110, 3189, 3269, 3293, 3361, 3580, 4129, 5024, 887, 951, 765, 2056, 2088, 852, 2517, 1169, 5054, 5055, 5056, 5057 ].indexOf(id) != -1) boost = 1.2;
             return boost;
         },
         rcv: function(p) {
             var boost = 1;
             var id = p.number + 1;
-            if([ 3191 ].indexOf(id) != -1) boost = 3;
-            if([ 3192, 3190, 3164, 5287, 5288, 5289, 5290, 3166, 5295, 5296, 5297, 5298, 1387, 1388, 1389, 1446, 1447, 1448, 1549, 1550, 1551 ].indexOf(id) != -1) boost = 2.5;
-            if([ 3168, 3170, 3149, 3151, 3152, 3158, 3189, 3150, 3197, 3153, 3173, 3171, 3172, 2797, 3100, 3102, 3118, 5281, 3135, 5282, 3154, 3157, 3104, 3106, 3137, 3139, 3141, 3146, 3147, 3148, 603, 865, 1518, 1879, 2097, 2158, 2394, 2684, 2893, 2987, 3143, 1792, 1945, 2111, 2323, 2354, 2611, 2649, 2721, 2869, 2990, 3017, 3083, 3145, 1889, 1972, 2336, 2362, 2510, 2659, 2995, 3094, 3115, 3124, 3107, 3142, 3108, 3109, 3144, 2936, 2938, 2940, 2942, 2944, 2946, 2948, 2950, 2952, 2698, 1143, 2908, 3049, 848, 1650, 2044, 2087, 2521, 1808, 1853, 1916, 1941, 2000, 5012, 5013, 5014, 5015, 2064, 2109, 2137, 2175, 2211, 2261, 2299, 2387, 2443, 2469, 5062, 5063, 5064, 5065, 2557, 5140, 5141, 5142, 5143, 2583, 2618, 5176, 5177, 5178, 5179, 2690, 2729, 2763, 2792, 2823, 2850, 5210, 5211, 5212, 5213, 2879, 2913, 2977, 3022, 3060, 5263, 5264, 5265, 5266 ].indexOf(id) != -1) boost = 1.2;
+            if([ 4133, 4134, 4135, 4127, 4108, 4122, 4124, 4128, 5578, 5579, 5580, 5581, 5586, 5587, 5588, 5589 ].indexOf(id) != -1) boost = 2.5;
+            if([ 4125, 4126, 4132, 4119, 4120, 4118, 5571, 5572, 5573, 4089, 4068, 4067, 1853, 2000, 2583, 2659, 2995, 3197, 3297, 3491, 3527, 3758, 2977, 5012, 5013, 5014, 5015, 3364, 3462, 3483, 3523, 3543, 3563, 3641, 3735, 3775, 3861, 3933, 4003, 4050, 4071, 5393, 5394, 5395, 5396, 5516, 5517, 5518, 5519, 5551, 5552, 5553, 5554, 3688, 3687, 3686, 4004, 4005, 4111, 4112, 4113, 4094, 4093, 4092 ].indexOf(id) != -1) boost = 1.25;
+            if([ 2936, 2938, 2940, 2942, 2944, 2946, 2948, 2950, 2952, 3884, 3886, 603, 836, 1830, 1879, 2015, 5012, 2197, 2394, 3143, 3399, 1630, 1733, 2111, 2611, 3110, 3189, 3269, 3293, 3361, 3580, 4129, 5024, 887, 951, 765, 2056, 2088, 852, 2517, 1169, 5054, 5055, 5056, 5057 ].indexOf(id) != -1) boost = 1.2;
             return boost;
         },
 	},
 
-    'Treasure Map [Japan]': {
-        description: 'Boost stats of characters, check in-game news for lists.',
-        thumb: 3297,
+    'Pirate King Adventure [Worldwide]': {
+        description: 'Certain units boosted. See Drops Table & Character Table for details.',
+        thumb: 4012,
         id: 44, // don't change this
         atk: function(p) {
             var boost = 1;
             var id = p.number + 1;
-            if([ 3294, 3296, 3295, 3280, 5314, 5315, 5316, 3282, 3273 ].indexOf(id) != -1) boost = 2.5;
-            //if([ 0 ].indexOf(id) != -1) boost = 1.3;
-            if([ 3245, 5309, 3253, 5310, 3275, 3278, 3255, 3257, 3259, 3261, 3283, 3284, 3263, 3288, 3289, 3290, 3291, 3293, 3276, 3285, 3286, 3287, 3269, 3241, 3251, 3247, 3262, 1853, 1889, 1916, 2261, 2469, 5062, 5063, 5064, 5065, 2659, 3022, 3115, 3217, 3239, 3297 ].indexOf(id) != -1) boost = 1.25;
-            if([ 3225, 3227, 3240, 3229, 3231, 603, 933, 1432, 1518, 1595, 1830, 2015, 2398, 2517, 5070, 5071, 5072, 5073, 2846, 2922, 2923, 2987, 926, 1422, 1528, 1667, 1828, 2111, 2123, 2354, 2375, 2471, 2845, 3235, 1328, 1511, 1581, 1857, 2088, 2666, 3233, 3222, 3223, 2936, 2938, 2940, 2942, 2944, 2946, 2948, 2950, 2952 ].indexOf(id) != -1) boost = 1.2;
+            if([ 4000, 4010, 4022, 4023, 4020, 4011, 4012 ].indexOf(id) != -1) boost = 1.2;
             return boost;
         },
         hp: function(p) {
             var boost = 1;
             var id = p.number + 1;
-            if([ 3294, 3296, 3295, 3280, 5314, 5315, 5316, 3282, 3273 ].indexOf(id) != -1) boost = 2.5;
-            //if([ 0 ].indexOf(id) != -1) boost = 1.3;
-            if([ 3245, 5309, 3253, 5310, 3275, 3278, 3255, 3257, 3259, 3261, 3283, 3284, 3263, 3288, 3289, 3290, 3291, 3293, 3276, 3285, 3286, 3287, 3269, 3241, 3251, 3247, 3262, 1853, 1889, 1916, 2261, 2469, 5062, 5063, 5064, 5065, 2659, 3022, 3115, 3217, 3239, 3297 ].indexOf(id) != -1) boost = 1.25;
-            if([ 3225, 3227, 3240, 3229, 3231, 603, 933, 1432, 1518, 1595, 1830, 2015, 2398, 2517, 5070, 5071, 5072, 5073, 2846, 2922, 2923, 2987, 926, 1422, 1528, 1667, 1828, 2111, 2123, 2354, 2375, 2471, 2845, 3235, 1328, 1511, 1581, 1857, 2088, 2666, 3233, 3222, 3223, 2936, 2938, 2940, 2942, 2944, 2946, 2948, 2950, 2952 ].indexOf(id) != -1) boost = 1.2;
+            if([ 4000, 4010, 4022, 4023, 4020, 4011, 4012 ].indexOf(id) != -1) boost = 1.2;
             return boost;
         },
         rcv: function(p) {
             var boost = 1;
             var id = p.number + 1;
-            if([ 3294, 3296, 3295, 3280, 5314, 5315, 5316, 3282, 3273 ].indexOf(id) != -1) boost = 2.5;
-            //if([ 0 ].indexOf(id) != -1) boost = 1.3;
-            if([ 3245, 5309, 3253, 5310, 3275, 3278, 3255, 3257, 3259, 3261, 3283, 3284, 3263, 3288, 3289, 3290, 3291, 3293, 3276, 3285, 3286, 3287, 3269, 3241, 3251, 3247, 3262, 1853, 1889, 1916, 2261, 2469, 5062, 5063, 5064, 5065, 2659, 3022, 3115, 3217, 3239, 3297 ].indexOf(id) != -1) boost = 1.25;
-            if([ 3225, 3227, 3240, 3229, 3231, 603, 933, 1432, 1518, 1595, 1830, 2015, 2398, 2517, 5070, 5071, 5072, 5073, 2846, 2922, 2923, 2987, 926, 1422, 1528, 1667, 1828, 2111, 2123, 2354, 2375, 2471, 2845, 3235, 1328, 1511, 1581, 1857, 2088, 2666, 3233, 3222, 3223, 2936, 2938, 2940, 2942, 2944, 2946, 2948, 2950, 2952 ].indexOf(id) != -1) boost = 1.2;
+            if([ 4000, 4010, 4022, 4023, 4020, 4011, 4012 ].indexOf(id) != -1) boost = 1.2;
             return boost;
         },
     },
@@ -471,52 +462,56 @@ window.effects = {
         thumb: 1700,
         id: 45, // don't change this
         atk: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Gecko Moria", "Leo", "Trafalgar Law", "Carina", "Brannew", "Carrot", "Roronoa Zoro", "Brook", "Marguerite", "Machvise", "Dosun", "King Neptune" ].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },    
         hp: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Gecko Moria", "Leo", "Trafalgar Law", "Carina", "Brannew", "Carrot", "Roronoa Zoro", "Brook", "Marguerite", "Machvise", "Dosun", "King Neptune" ].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },    
         rcv: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Gecko Moria", "Leo", "Trafalgar Law", "Carina", "Brannew", "Carrot", "Roronoa Zoro", "Brook", "Marguerite", "Machvise", "Dosun", "King Neptune" ].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },    
     },
 	
-	'Kizuna Clash [Global]': {
-        description: 'Certain units boosted',
-        thumb: 3153,
+	'Kizuna Clash [Worldwide]': {
+        description: 'Certain units boosted. See Drops Table & Character Table for details.',
+        thumb: 3422,
         id: 46, // don't change this
         atk: function(p) {
             var boost = 1;
             var id = p.number + 1;
-            if([ 3149, 3151, 3152 ].indexOf(id) != -1) boost = 2.5;
-            if([ 3150, 3145, 3143, 3142, 3141, 3139, 3137, 3124, 3135, 5281, 5282, 1268, 3154 ].indexOf(id) != -1) boost = 2;
-            //if([ 2756, 2793, 2832, 2853, 2887, 2888, 2889, 2996, 2997, 2998 ].indexOf(id) != -1) boost = 1.5;
-            //if([ 0 ].indexOf(id) != -1) boost = 1.25;
+            //if([  ].indexOf(id) != -1) boost = 2.5;
+            if([ 4137, 4138, 4122, 4124, 4125, 4126, 4132, 4133, 4134, 4135, 4128, 3307, 4139, 5578, 5579, 5580, 5581, 5586, 5587, 5588, 5589 ].indexOf(id) != -1) boost = 2;
+            if([ 4115, 4116, 3886, 2936, 2938, 2940, 2942, 2944, 2946, 2948, 2950, 2952, 3884, 4127, 2729, 2583, 2792, 2977, 2023, 2025, 4082, 4054, 3780, 4084, 3917, 3590, 3646, 3692, 3738, 4035, 3302, 3445, 3803, 4034, 3427, 3861, 4012, 4037, 3957, 3956, 3607, 3515, 4129, 4100, 4102, 4111, 3625, 3592, 5488, 5489, 5490, 5491, 5385, 5386, 5387, 5388 ].indexOf(id) != -1) boost = 1.5;
+            //if([  ].indexOf(id) != -1) boost = 1.25;
             return boost;
         },
         hp: function(p) {
             var boost = 1;
             var id = p.number + 1;
-            if([ 3149, 3151, 3152 ].indexOf(id) != -1) boost = 2.5;
-            if([ 3150, 3145, 3143, 3142, 3141, 3139, 3137, 3124, 3135, 5281, 5282, 1268, 3154 ].indexOf(id) != -1) boost = 2;
-            //if([ 2756, 2793, 2832, 2853, 2887, 2888, 2889, 2996, 2997, 2998 ].indexOf(id) != -1) boost = 1.5;
-            //if([ 0 ].indexOf(id) != -1) boost = 1.25;
+            //if([  ].indexOf(id) != -1) boost = 2.5;
+            if([ 4137, 4138, 4122, 4124, 4125, 4126, 4132, 4133, 4134, 4135, 4128, 3307, 4139, 5578, 5579, 5580, 5581, 5586, 5587, 5588, 5589 ].indexOf(id) != -1) boost = 2;
+            if([ 4115, 4116, 3886, 2936, 2938, 2940, 2942, 2944, 2946, 2948, 2950, 2952, 3884, 4127, 2729, 2583, 2792, 2977, 2023, 2025, 4082, 4054, 3780, 4084, 3917, 3590, 3646, 3692, 3738, 4035, 3302, 3445, 3803, 4034, 3427, 3861, 4012, 4037, 3957, 3956, 3607, 3515, 4129, 4100, 4102, 4111, 3625, 3592, 5488, 5489, 5490, 5491, 5385, 5386, 5387, 5388 ].indexOf(id) != -1) boost = 1.5;
+            //if([  ].indexOf(id) != -1) boost = 1.25;
             return boost;
         },
         rcv: function(p) {
             var boost = 1;
             var id = p.number + 1;
-            if([ 3149, 3151, 3152 ].indexOf(id) != -1) boost = 2.5;
-            if([ 3150, 3145, 3143, 3142, 3141, 3139, 3137, 3124, 3135, 5281, 5282, 1268, 3154 ].indexOf(id) != -1) boost = 2;
-            //if([ 2756, 2793, 2832, 2853, 2887, 2888, 2889, 2996, 2997, 2998 ].indexOf(id) != -1) boost = 1.5;
-            //if([ 0 ].indexOf(id) != -1) boost = 1.25;
+            //if([  ].indexOf(id) != -1) boost = 2.5;
+            if([ 4137, 4138, 4122, 4124, 4125, 4126, 4132, 4133, 4134, 4135, 4128, 3307, 4139, 5578, 5579, 5580, 5581, 5586, 5587, 5588, 5589 ].indexOf(id) != -1) boost = 2;
+            if([ 4115, 4116, 3886, 2936, 2938, 2940, 2942, 2944, 2946, 2948, 2950, 2952, 3884, 4127, 2729, 2583, 2792, 2977, 2023, 2025, 4082, 4054, 3780, 4084, 3917, 3590, 3646, 3692, 3738, 4035, 3302, 3445, 3803, 4034, 3427, 3861, 4012, 4037, 3957, 3956, 3607, 3515, 4129, 4100, 4102, 4111, 3625, 3592, 5488, 5489, 5490, 5491, 5385, 5386, 5387, 5388 ].indexOf(id) != -1) boost = 1.5;
+            //if([  ].indexOf(id) != -1) boost = 1.25;
             return boost;
+        },
+        rainbow: function(p) {
+            var id = p.unit.number + 1;
+            if([ 4137, 4138 ].indexOf(id) != -1) return true;
         },
 	},
     
@@ -525,17 +520,17 @@ window.effects = {
         thumb: 1314,
         id: 47, // don't change this
         atk: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Monkey D. Luffy", "Buggy", "Portgas D. Ace", "Marco", "Jozu", "Vista", "Whitebeard", "Crocodile", "Emporio Ivankov", "Jimbe", "Boa Hancock", "Namule", "Rakuyo", "Fossa", "Curiel", "Doma", "Decalvan Brothers", "Squard", "Whitey Bay", "Little Oars Jr.", "Inazuma", "Blenheim", "Kingdew", "Atmos", "Speed Jiru", "Blackbeard", "Rob Lucci", "Thatch", "Silvers Rayleigh", "Eneru", "Dracule Mihawk", "Perona", "Kinemon", "Kanjuro", "Inuarashi", "Wanda", "Sicilian", "Kozuki Momonosuke", "Nekomamushi", "Pedro", "Carrot", "Raizo" ].indexOf(character) != -1;
             return !matching ? 1 : 1.5;
         },
         hp: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Monkey D. Luffy", "Buggy", "Portgas D. Ace", "Marco", "Jozu", "Vista", "Whitebeard", "Crocodile", "Emporio Ivankov", "Jimbe", "Boa Hancock", "Namule", "Rakuyo", "Fossa", "Curiel", "Doma", "Decalvan Brothers", "Squard", "Whitey Bay", "Little Oars Jr.", "Inazuma", "Blenheim", "Kingdew", "Atmos", "Speed Jiru", "Blackbeard", "Rob Lucci", "Thatch", "Silvers Rayleigh", "Eneru", "Dracule Mihawk", "Perona", "Kinemon", "Kanjuro", "Inuarashi", "Wanda", "Sicilian", "Kozuki Momonosuke", "Nekomamushi", "Pedro", "Carrot", "Raizo" ].indexOf(character) != -1;
             return !matching ? 1 : 1.5;
         },  
         rcv: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Monkey D. Luffy", "Buggy", "Portgas D. Ace", "Marco", "Jozu", "Vista", "Whitebeard", "Crocodile", "Emporio Ivankov", "Jimbe", "Boa Hancock", "Namule", "Rakuyo", "Fossa", "Curiel", "Doma", "Decalvan Brothers", "Squard", "Whitey Bay", "Little Oars Jr.", "Inazuma", "Blenheim", "Kingdew", "Atmos", "Speed Jiru", "Blackbeard", "Rob Lucci", "Thatch", "Silvers Rayleigh", "Eneru", "Dracule Mihawk", "Perona", "Kinemon", "Kanjuro", "Inuarashi", "Wanda", "Sicilian", "Kozuki Momonosuke", "Nekomamushi", "Pedro", "Carrot", "Raizo" ].indexOf(character) != -1;
             return !matching ? 1 : 1.5;
         }, 
@@ -546,17 +541,17 @@ window.effects = {
         thumb: 1404,
         id: 48, // don't change this
         atk: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Akainu", "Eneru", "Cavendish", "Fujitora", "Hody Jones", "Dracule Mihawk", "Rob Lucci", "Sengoku", "Magellan", "Blackbeard", "Donquixote Doflamingo", "Aokiji", "Kizaru", "Crocodile", "Boa Hancock", "Buggy", "Nefertari Vivi", "Emporio Ivankov", "Gecko Moria", "Bartholomew Kuma", "Vander Decken IX", "Caribou", "Hyouzou", "Don Chinjao", "Hajrudin", "Hannyabal", "Bentham", "Kinemon", "Duval", "Elizabeth", "Monkey D. Garp", "Smoker", "Tashigi", "Coby", "Momonga", "Sentomaru", "Monet", "Caesar Clown", "Kaku", "Blueno", "Jabra", "Kumadori"].indexOf(character) != -1;
             return !matching ? 1 : 1.5;
         },
         hp: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Akainu", "Eneru", "Cavendish", "Fujitora", "Hody Jones", "Dracule Mihawk", "Rob Lucci", "Sengoku", "Magellan", "Blackbeard", "Donquixote Doflamingo", "Aokiji", "Kizaru", "Crocodile", "Boa Hancock", "Buggy", "Nefertari Vivi", "Emporio Ivankov", "Gecko Moria", "Bartholomew Kuma", "Vander Decken IX", "Caribou", "Hyouzou", "Don Chinjao", "Hajrudin", "Hannyabal", "Bentham", "Kinemon", "Duval", "Elizabeth", "Monkey D. Garp", "Smoker", "Tashigi", "Coby", "Momonga", "Sentomaru", "Monet", "Caesar Clown", "Kaku", "Blueno", "Jabra", "Kumadori"].indexOf(character) != -1;
             return !matching ? 1 : 1.5;
         },  
         rcv: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Akainu", "Eneru", "Cavendish", "Fujitora", "Hody Jones", "Dracule Mihawk", "Rob Lucci", "Sengoku", "Magellan", "Blackbeard", "Donquixote Doflamingo", "Aokiji", "Kizaru", "Crocodile", "Boa Hancock", "Buggy", "Nefertari Vivi", "Emporio Ivankov", "Gecko Moria", "Bartholomew Kuma", "Vander Decken IX", "Caribou", "Hyouzou", "Don Chinjao", "Hajrudin", "Hannyabal", "Bentham", "Kinemon", "Duval", "Elizabeth", "Monkey D. Garp", "Smoker", "Tashigi", "Coby", "Momonga", "Sentomaru", "Monet", "Caesar Clown", "Kaku", "Blueno", "Jabra", "Kumadori"].indexOf(character) != -1;
             return !matching ? 1 : 1.5;
         },  
@@ -588,17 +583,17 @@ window.effects = {
         thumb: 1753,
         id: 52,
         atk: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Monkey D. Luffy", "Roronoa Zoro", "Usopp", "Sanji", "Nami", "Tony Tony Chopper", "Franky", "Nico Robin", "Brook"].indexOf(character) != -1;
             return !matching ? 1 : 1.75;
         },
         hp: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Monkey D. Luffy", "Roronoa Zoro", "Usopp", "Sanji", "Nami", "Tony Tony Chopper", "Franky", "Nico Robin", "Brook"].indexOf(character) != -1;
             return !matching ? 1 : 1.75;
         },
         rcv: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Monkey D. Luffy", "Roronoa Zoro", "Usopp", "Sanji", "Nami", "Tony Tony Chopper", "Franky", "Nico Robin", "Brook"].indexOf(character) != -1;
             return !matching ? 1 : 1.5;
         },
@@ -616,7 +611,7 @@ window.effects = {
         thumb: 870,
         id: 54, // don't change this
         atk: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             var boost = 1;
             //matching = [ "Monkey D. Luffy", "Roronoa Zoro", "Franky", "Nico Robin", "Usopp", "Trafalgar Law", "Bartolomeo", "Cavendish", "Rob Lucci", "Sabo", "Boa Sandersonia", "Boa Marigold", "Boa Hancock", "Marguerite", "Leo", "Don Sai", "Don Chinjao", "Ideo", "Blue Gilly", "Suleiman", "Mansherry", "Ricky", "Kyros", "Funk Brothers", "Hajrudin", "Abdullah and Jeet", "Orlumbus", "Elizabello", "Bepo", ].indexOf(character) != -1;
             matching = [ "Monkey D. Luffy", "Roronoa Zoro", "Franky", "Nico Robin", "Usopp", "Trafalgar Law", "Bartolomeo", "Cavendish", "Rob Lucci", "Sabo", "Boa Sandersonia", "Boa Marigold", "Boa Hancock", "Marguerite", "Leo", "Don Sai", "Don Chinjao", "Ideo", "Blue Gilly", "Suleiman", "Mansherry", "Ricky", "Kyros", "Funk Brothers", "Hajrudin", "Abdullah and Jeet", "Orlumbus", "Elizabello", "Bepo", "Sabo", "Dagama", "Jesus Burgess", "Diamante" ].indexOf(character) != -1;
@@ -628,7 +623,7 @@ window.effects = {
             return matching ? boost : 1;
         },
         hp: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             var boost = 1;
             matching = [ "Monkey D. Luffy", "Roronoa Zoro", "Franky", "Nico Robin", "Usopp", "Trafalgar Law", "Bartolomeo", "Cavendish", "Rob Lucci", "Sabo", "Boa Sandersonia", "Boa Marigold", "Boa Hancock", "Marguerite", "Leo", "Don Sai", "Don Chinjao", "Ideo", "Blue Gilly", "Suleiman", "Mansherry", "Ricky", "Kyros", "Funk Brothers", "Hajrudin", "Abdullah and Jeet", "Orlumbus", "Elizabello", "Bepo", ].indexOf(character) != -1;
             /*if (p.class.has("Slasher")) boost *= 1.5;
@@ -639,7 +634,7 @@ window.effects = {
             return boost;
         },  
         rcv: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             var boost = 1;
             matching = [ "Monkey D. Luffy", "Roronoa Zoro", "Franky", "Nico Robin", "Usopp", "Trafalgar Law", "Bartolomeo", "Cavendish", "Rob Lucci", "Sabo", "Boa Sandersonia", "Boa Marigold", "Boa Hancock", "Marguerite", "Leo", "Don Sai", "Don Chinjao", "Ideo", "Blue Gilly", "Suleiman", "Mansherry", "Ricky", "Kyros", "Funk Brothers", "Hajrudin", "Abdullah and Jeet", "Orlumbus", "Elizabello", "Bepo", ].indexOf(character) != -1;
             /*if (p.class.has("Slasher")) boost *= 1.5;
@@ -670,17 +665,17 @@ window.effects = {
         thumb: 1547,
         id: 57, // don't change this
         atk: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Monkey D. Luffy", "Roronoa Zoro", "Usopp", "Sanji", "Nami", "Tony Tony Chopper", "Franky", "Nico Robin", "Brook"].indexOf(character) != -1;
             return !matching ? 1 : 1.5;
         },
         hp: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Monkey D. Luffy", "Roronoa Zoro", "Usopp", "Sanji", "Nami", "Tony Tony Chopper", "Franky", "Nico Robin", "Brook"].indexOf(character) != -1;
             return !matching ? 1 : 1.5;
         },
         rcv: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Monkey D. Luffy", "Roronoa Zoro", "Usopp", "Sanji", "Nami", "Tony Tony Chopper", "Franky", "Nico Robin", "Brook"].indexOf(character) != -1;
             return !matching ? 1 : 1.5;
         },
@@ -691,17 +686,17 @@ window.effects = {
         thumb: 447,
         id: 58, // don't change this
         atk: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Koala", "Leo", "Elizabello", "Yasopp", "Curiel", "Hina", "Coby", "Monkey D. Garp", "Vinsmoke Reiju", "Nami", "Lucky Roo", "Kizaru"].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },
         hp: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Koala", "Leo", "Elizabello", "Yasopp", "Curiel", "Hina", "Coby", "Monkey D. Garp", "Vinsmoke Reiju", "Nami", "Lucky Roo", "Kizaru"].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },
         rcv: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Koala", "Leo", "Elizabello", "Yasopp", "Curiel", "Hina", "Coby", "Monkey D. Garp", "Vinsmoke Reiju", "Nami", "Lucky Roo", "Kizaru"].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },
@@ -719,17 +714,17 @@ window.effects = {
         thumb: 1873,
         id: 60, // don't change this
         atk: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Usopp", "Dracule Mihawk", "Jinbe", "Donquixote Doflamingo", "Koala", "Kizaru", "Diamante", "Tanaka", "Byrnndi World", "Caribou", "Charlotte Pudding", "Charlotte Amande"].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },
         hp: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Usopp", "Dracule Mihawk", "Jinbe", "Donquixote Doflamingo", "Koala", "Kizaru", "Diamante", "Tanaka", "Byrnndi World", "Caribou", "Charlotte Pudding", "Charlotte Amande"].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },
         rcv: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Usopp", "Dracule Mihawk", "Jinbe", "Donquixote Doflamingo", "Koala", "Kizaru", "Diamante", "Tanaka", "Byrnndi World", "Caribou", "Charlotte Pudding", "Charlotte Amande"].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },
@@ -740,17 +735,17 @@ window.effects = {
         thumb: 1984,
         id: 61, // don't change this
         atk: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Monkey D. Luffy", "Portgas D. Ace", "Jinbe", "Marco", "Crocodile", "Buggy", "Daz Bones", "Sabo", "Franky", "Monkey D. Garp", "Coby", "Little Oars Jr.", "Jozu", "Vista", "Izo", "Blamenco", "Namule", "Rakuyo", "Fossa", "Curiel", "Squard", "Whitey Bay", "Blenheim", "Kingdew", "Haruta", "Atmos", "Speed Jiru", "Doma", "Tashigi", "Smoker",].indexOf(character) != -1;
             return !matching ? 1 : 1.5;
         },
         hp: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Monkey D. Luffy", "Portgas D. Ace", "Jinbe", "Marco", "Crocodile", "Buggy", "Daz Bones", "Sabo", "Franky", "Monkey D. Garp", "Coby", "Little Oars Jr.", "Jozu", "Vista", "Izo", "Blamenco", "Namule", "Rakuyo", "Fossa", "Curiel", "Squard", "Whitey Bay", "Blenheim", "Kingdew", "Haruta", "Atmos", "Speed Jiru", "Doma", "Tashigi", "Smoker",].indexOf(character) != -1;
             return !matching ? 1 : 1.5;
         },
         rcv: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Monkey D. Luffy", "Portgas D. Ace", "Jinbe", "Marco", "Crocodile", "Buggy", "Daz Bones", "Sabo", "Franky", "Monkey D. Garp", "Coby", "Little Oars Jr.", "Jozu", "Vista", "Izo", "Blamenco", "Namule", "Rakuyo", "Fossa", "Curiel", "Squard", "Whitey Bay", "Blenheim", "Kingdew", "Haruta", "Atmos", "Speed Jiru", "Doma", "Tashigi", "Smoker",].indexOf(character) != -1;
             return !matching ? 1 : 1.5;
         },
@@ -761,17 +756,17 @@ window.effects = {
         thumb: 912,
         id: 62, // don't change this
         atk: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Vinsmoke Judge", "Charlotte Cracker", "Charlotte Smoothie", "Charlotte Perospero", "Marco", "Donquixote Doflamingo", "Eneru", "Señor Pink", "Carrot", ].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },    
         hp: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Vinsmoke Judge", "Charlotte Cracker", "Charlotte Smoothie", "Charlotte Perospero", "Marco", "Donquixote Doflamingo", "Eneru", "Señor Pink", "Carrot", ].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },    
         rcv: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Vinsmoke Judge", "Charlotte Cracker", "Charlotte Smoothie", "Charlotte Perospero", "Marco", "Donquixote Doflamingo", "Eneru", "Señor Pink", "Carrot", ].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },    
@@ -809,17 +804,17 @@ window.effects = {
         thumb: 2175,
         id: 64, // don't change this
         atk: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Koala", "Stussy", "Pedro", "Brook", "Hody Jones", "Kizaru", "Charlotte Oven", "Wanda", "Carina", "Charlotte Daifuku"].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },
         hp: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Koala", "Stussy", "Pedro", "Brook", "Hody Jones", "Kizaru", "Charlotte Oven", "Wanda", "Carina", "Charlotte Daifuku"].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },
         rcv: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = ["Koala", "Stussy", "Pedro", "Brook", "Hody Jones", "Kizaru", "Charlotte Oven", "Wanda", "Carina", "Charlotte Daifuku"].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },
@@ -851,17 +846,17 @@ window.effects = {
         thumb: 1298,
         id: 68, // don't change this
         atk: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Nefertari Vivi", "Portgas D. Ace", "Shanks", "Brook", "Sabo", "Pound", "Charlotte Linlin", "Charlotte Smoothie", "Charlotte Perospero", "Charlotte Cracker", "Charlotte Daifuku", ].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },    
         hp: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Nefertari Vivi", "Portgas D. Ace", "Shanks", "Brook", "Sabo", "Pound", "Charlotte Linlin", "Charlotte Smoothie", "Charlotte Perospero", "Charlotte Cracker", "Charlotte Daifuku", ].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },    
         rcv: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Nefertari Vivi", "Portgas D. Ace", "Shanks", "Brook", "Sabo", "Pound", "Charlotte Linlin", "Charlotte Smoothie", "Charlotte Perospero", "Charlotte Cracker", "Charlotte Daifuku", ].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },    
@@ -902,7 +897,7 @@ window.effects = {
         atk: function(p) {
             var id = p.number + 1;
             var evolved = !(id in window.evolutions);
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             if(character) if(character.length == 2) var matching = [ "Capone Bege", "Charlotte Linlin", "Carrot", "Jinbe", "Vinsmoke Judge", "Vito", "Gotti", "Charlotte Smoothie", "Charlotte Daifuku", "Tamago", "Charlotte Amande", "Caesar Clown", "Aladdin", "Charlotte Praline", "Charlotte Perospero", "Charlotte Pudding", "Bobbin", "Charlotte Opera", "Charlotte Chiffon", "Wadatsumi", "Charlotte Cracker", "Pekoms", "Charlotte Brûlée", "Charlotte Oven", "Pedro" ].indexOf(character[0]) != -1 || [ "Capone Bege", "Charlotte Linlin", "Carrot", "Jinbe", "Vinsmoke Judge", "Vito", "Gotti", "Charlotte Smoothie", "Charlotte Daifuku", "Tamago", "Charlotte Amande", "Caesar Clown", "Aladdin", "Charlotte Praline", "Charlotte Perospero", "Charlotte Pudding", "Bobbin", "Charlotte Opera", "Charlotte Chiffon", "Wadatsumi", "Charlotte Cracker", "Pekoms", "Charlotte Brûlée", "Charlotte Oven", "Pedro" ].indexOf(character[1]) != -1;
             else var matching = [ "Capone Bege", "Charlotte Linlin", "Carrot", "Jinbe", "Vinsmoke Judge", "Vito", "Gotti", "Charlotte Smoothie", "Charlotte Daifuku", "Tamago", "Charlotte Amande", "Caesar Clown", "Aladdin", "Charlotte Praline", "Charlotte Perospero", "Charlotte Pudding", "Bobbin", "Charlotte Opera", "Charlotte Chiffon", "Wadatsumi", "Charlotte Cracker", "Pekoms", "Charlotte Brûlée", "Charlotte Oven", "Pedro" ].indexOf(character) != -1;
             if(character) if(character.length == 2) var matching2 = [ "Charlotte Katakuri", "Charlotte Flampe", "Charlotte Mont-d'Or", "Streusen" ].indexOf(character[0]) != -1 || [ "Charlotte Katakuri", "Charlotte Flampe", "Charlotte Mont-d'Or", "Streusen" ].indexOf(character[1]) != -1;
@@ -917,7 +912,7 @@ window.effects = {
         hp: function(p) {
             var id = p.number + 1;
             var evolved = !(id in window.evolutions);
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             if(character) if(character.length == 2) var matching = [ "Capone Bege", "Charlotte Linlin", "Carrot", "Jinbe", "Vinsmoke Judge", "Vito", "Gotti", "Charlotte Smoothie", "Charlotte Daifuku", "Tamago", "Charlotte Amande", "Caesar Clown", "Aladdin", "Charlotte Praline", "Charlotte Perospero", "Charlotte Pudding", "Bobbin", "Charlotte Opera", "Charlotte Chiffon", "Wadatsumi", "Charlotte Cracker", "Pekoms", "Charlotte Brûlée", "Charlotte Oven", "Pedro" ].indexOf(character[0]) != -1 || [ "Capone Bege", "Charlotte Linlin", "Carrot", "Jinbe", "Vinsmoke Judge", "Vito", "Gotti", "Charlotte Smoothie", "Charlotte Daifuku", "Tamago", "Charlotte Amande", "Caesar Clown", "Aladdin", "Charlotte Praline", "Charlotte Perospero", "Charlotte Pudding", "Bobbin", "Charlotte Opera", "Charlotte Chiffon", "Wadatsumi", "Charlotte Cracker", "Pekoms", "Charlotte Brûlée", "Charlotte Oven", "Pedro" ].indexOf(character[1]) != -1;
             else var matching = [ "Capone Bege", "Charlotte Linlin", "Carrot", "Jinbe", "Vinsmoke Judge", "Vito", "Gotti", "Charlotte Smoothie", "Charlotte Daifuku", "Tamago", "Charlotte Amande", "Caesar Clown", "Aladdin", "Charlotte Praline", "Charlotte Perospero", "Charlotte Pudding", "Bobbin", "Charlotte Opera", "Charlotte Chiffon", "Wadatsumi", "Charlotte Cracker", "Pekoms", "Charlotte Brûlée", "Charlotte Oven", "Pedro" ].indexOf(character) != -1;
             if(character) if(character.length == 2) var matching2 = [ "Charlotte Katakuri", "Charlotte Flampe", "Charlotte Mont-d'Or", "Streusen" ].indexOf(character[0]) != -1 || [ "Charlotte Katakuri", "Charlotte Flampe", "Charlotte Mont-d'Or", "Streusen" ].indexOf(character[1]) != -1;
@@ -932,7 +927,7 @@ window.effects = {
         rcv: function(p) {
             var id = p.number + 1;
             var evolved = !(id in window.evolutions);
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             if(character) if(character.length == 2) var matching = [ "Capone Bege", "Charlotte Linlin", "Carrot", "Jinbe", "Vinsmoke Judge", "Vito", "Gotti", "Charlotte Smoothie", "Charlotte Daifuku", "Tamago", "Charlotte Amande", "Caesar Clown", "Aladdin", "Charlotte Praline", "Charlotte Perospero", "Charlotte Pudding", "Bobbin", "Charlotte Opera", "Charlotte Chiffon", "Wadatsumi", "Charlotte Cracker", "Pekoms", "Charlotte Brûlée", "Charlotte Oven", "Pedro" ].indexOf(character[0]) != -1 || [ "Capone Bege", "Charlotte Linlin", "Carrot", "Jinbe", "Vinsmoke Judge", "Vito", "Gotti", "Charlotte Smoothie", "Charlotte Daifuku", "Tamago", "Charlotte Amande", "Caesar Clown", "Aladdin", "Charlotte Praline", "Charlotte Perospero", "Charlotte Pudding", "Bobbin", "Charlotte Opera", "Charlotte Chiffon", "Wadatsumi", "Charlotte Cracker", "Pekoms", "Charlotte Brûlée", "Charlotte Oven", "Pedro" ].indexOf(character[1]) != -1;
             else var matching = [ "Capone Bege", "Charlotte Linlin", "Carrot", "Jinbe", "Vinsmoke Judge", "Vito", "Gotti", "Charlotte Smoothie", "Charlotte Daifuku", "Tamago", "Charlotte Amande", "Caesar Clown", "Aladdin", "Charlotte Praline", "Charlotte Perospero", "Charlotte Pudding", "Bobbin", "Charlotte Opera", "Charlotte Chiffon", "Wadatsumi", "Charlotte Cracker", "Pekoms", "Charlotte Brûlée", "Charlotte Oven", "Pedro" ].indexOf(character) != -1;
             if(character) if(character.length == 2) var matching2 = [ "Charlotte Katakuri", "Charlotte Flampe", "Charlotte Mont-d'Or", "Streusen" ].indexOf(character[0]) != -1 || [ "Charlotte Katakuri", "Charlotte Flampe", "Charlotte Mont-d'Or", "Streusen" ].indexOf(character[1]) != -1;
@@ -972,17 +967,17 @@ window.effects = {
         thumb: 2244,
         id: 75, // don't change this
         atk: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Carrot", "Stussy", "Charlotte Opera", "Charlotte Bavarois", "Charlotte Galette", "Pedro" ].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },    
         hp: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Carrot", "Stussy", "Charlotte Opera", "Charlotte Bavarois", "Charlotte Galette", "Pedro" ].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },    
         rcv: function(p) {
-            var character = window.families[p.number];
+            var character = window.families[p.number+1];
             matching = [ "Carrot", "Stussy", "Charlotte Opera", "Charlotte Bavarois", "Charlotte Galette", "Pedro" ].indexOf(character) != -1;
             return !matching ? 1 : 1.25;
         },    
@@ -1199,9 +1194,46 @@ window.effects = {
         },
 	},
 
+    'Face-Off! Seven Warlords of the Sea': {
+        description: 'Boost stats of characters, check in-game news for lists.',
+        thumb: 3246,
+        id: 85, // don't change this
+        atk: function(p) {
+            var boost = 1;
+            var id = p.number + 1;
+            if([ 3246, 3248, 3249 ].indexOf(id) != -1) boost = 2;
+            if([ 3247 ].indexOf(id) != -1) boost = 1.75;
+            if([ 227, 306, 750, 752, 754, 756, 760, 804, 806, 860, 865, 978, 1230, 1232, 1234, 1236, 1238, 1298, 1316, 1318, 1320, 1322, 1324, 1595, 1614, 1808, 1846, 1926, 1983, 5000, 5001, 5002, 5003, 5004, 1991, 1993, 2015, 2027, 2029, 2031, 2068, 2183, 2185, 2187, 2189, 2283, 2483, 2510, 2538, 2542, 2552, 5084, 5085, 5086, 5087, 5100, 5101, 5102, 5103, 5124, 5125, 5126, 5127, 2583, 2605, 2618, 5168, 5169, 5170, 5171, 2632, 2659, 2668, 2670, 2795, 5172, 5173, 5174, 5175, 2819, 5188, 5189, 5190, 5191, 2841, 2867, 5237, 5238, 5239, 2882, 2895, 5244, 5245, 5246, 5247, 2966, 2975, 3007, 3038, 3052, 3097, 3098, 5268, 5269, 5270, 5271, 3100, 3104, 3106, 3157, 3171, 3172, 3186, 1445, 1663, 1847, 1881, 2034, 2434, 2505, 2578, 2954, 2991, 3240, 2682, 2064, 1778, 3197 ].indexOf(id) != -1) boost = 1.5;
+            return boost;
+        },
+        hp: function(p) {
+            var boost = 1;
+            var id = p.number + 1;
+            if([ 3246, 3248, 3249 ].indexOf(id) != -1) boost = 2;
+            if([ 3247 ].indexOf(id) != -1) boost = 1.75;
+            if([ 227, 306, 750, 752, 754, 756, 760, 804, 806, 860, 865, 978, 1230, 1232, 1234, 1236, 1238, 1298, 1316, 1318, 1320, 1322, 1324, 1595, 1614, 1808, 1846, 1926, 1983, 5000, 5001, 5002, 5003, 5004, 1991, 1993, 2015, 2027, 2029, 2031, 2068, 2183, 2185, 2187, 2189, 2283, 2483, 2510, 2538, 2542, 2552, 5084, 5085, 5086, 5087, 5100, 5101, 5102, 5103, 5124, 5125, 5126, 5127, 2583, 2605, 2618, 5168, 5169, 5170, 5171, 2632, 2659, 2668, 2670, 2795, 5172, 5173, 5174, 5175, 2819, 5188, 5189, 5190, 5191, 2841, 2867, 5237, 5238, 5239, 2882, 2895, 5244, 5245, 5246, 5247, 2966, 2975, 3007, 3038, 3052, 3097, 3098, 5268, 5269, 5270, 5271, 3100, 3104, 3106, 3157, 3171, 3172, 3186, 1445, 1663, 1847, 1881, 2034, 2434, 2505, 2578, 2954, 2991, 3240, 2682, 2064, 1778, 3197 ].indexOf(id) != -1) boost = 1.5;
+            return boost;
+        },
+        rcv: function(p) {
+            var boost = 1;
+            var id = p.number + 1;
+            if([ 3246, 3248, 3249 ].indexOf(id) != -1) boost = 2;
+            if([ 3247 ].indexOf(id) != -1) boost = 1.75;
+            if([ 227, 306, 750, 752, 754, 756, 760, 804, 806, 860, 865, 978, 1230, 1232, 1234, 1236, 1238, 1298, 1316, 1318, 1320, 1322, 1324, 1595, 1614, 1808, 1846, 1926, 1983, 5000, 5001, 5002, 5003, 5004, 1991, 1993, 2015, 2027, 2029, 2031, 2068, 2183, 2185, 2187, 2189, 2283, 2483, 2510, 2538, 2542, 2552, 5084, 5085, 5086, 5087, 5100, 5101, 5102, 5103, 5124, 5125, 5126, 5127, 2583, 2605, 2618, 5168, 5169, 5170, 5171, 2632, 2659, 2668, 2670, 2795, 5172, 5173, 5174, 5175, 2819, 5188, 5189, 5190, 5191, 2841, 2867, 5237, 5238, 5239, 2882, 2895, 5244, 5245, 5246, 5247, 2966, 2975, 3007, 3038, 3052, 3097, 3098, 5268, 5269, 5270, 5271, 3100, 3104, 3106, 3157, 3171, 3172, 3186, 1445, 1663, 1847, 1881, 2034, 2434, 2505, 2578, 2954, 2991, 3240, 2682, 2064, 1778, 3197 ].indexOf(id) != -1) boost = 1.5;
+            return boost;
+        },
+	},
+
     '80% DEF reduction': {
         description: 'Reduces enemy DEF by 80%',
         thumb: 2853,
-        id: 85, // don't change this
+        id: 86, // don't change this
+    },
+    
+    'TND Orbs': {
+        description: 'Activates [TND] orb support',
+        thumb: 3788,
+        id: 87, // don't change this
+        tndOrbsEnabled: true
     },
 };

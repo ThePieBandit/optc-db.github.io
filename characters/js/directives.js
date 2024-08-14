@@ -15,9 +15,10 @@ directives.characterTable = function($rootScope, $timeout, $compile, $storage) {
 		replace: true,
 		template: '<table id="mainTable" class="table table-striped-column panel panel-default"></table>',
 		link: function(scope, element, attrs) {
-			var table = element.dataTable({
-				iDisplayLength: $storage.get('unitsPerPage', 10),
-				stateSave: true,
+			window.charTable = element.dataTable({
+				stateSave: true, // includes page length
+                stateDuration: 0,
+                deferRender: true,
 				data: scope.table.data,
 				columns: scope.table.columns,
 				rowCallback: function(row, data, index) {
@@ -72,7 +73,7 @@ directives.characterTable = function($rootScope, $timeout, $compile, $storage) {
 				$timeout(function() { element.fnDraw(); });
 			};
             // report link
-            var link = $('<span class="help-link">Want to report or request something? <a> Join our discord</a>.</span>');
+            var link = $('<span class="help-link"><i class="fab fa-discord"></i> Want to report or request something? <a>Join our Discord server</a>.</span>');
             link.find('a').attr('href', 'https://discord.gg/MRhRrbF');
             link.insertAfter($('.dataTables_length'));
             // pick column link
@@ -81,7 +82,7 @@ directives.characterTable = function($rootScope, $timeout, $compile, $storage) {
             $compile(pick)(scope);
             pick.insertAfter($('.dataTables_length'));
             // night toggle
-            var nightToggle = $('<label class="night-toggle"><input type="checkbox">Night mode</input></label>');
+            var nightToggle = $('<label class="night-toggle"><input type="checkbox">Light mode</input></label>');
             nightToggle.find('input').change(function(e) {
                 $rootScope.nightMode = e.target.checked;
                 if (!$rootScope.$$phase) $rootScope.$apply();
@@ -110,10 +111,10 @@ directives.decorateSlot = function() {
         scope: { uid: '=', big: '@' },
         link: function(scope, element, attrs) {
             if (scope.big)
-                element[0].style.backgroundImage = 'url(' + Utils.getBigThumbnailUrl(scope.uid) + ')';
+                element[0].style.backgroundImage = 'url(' + Utils.getBigThumbnailUrl(scope.uid, '..') + ')';
             else
-                element[0].style.backgroundImage = 'url(' + Utils.getThumbnailUrl(scope.uid) + ')';
-                //element[0].style.backgroundImage = 'url(' + Utils.getGlobalThumbnailUrl(scope.uid) + '), url(' + Utils.getThumbnailUrl(scope.uid) + ')';
+                element[0].style.backgroundImage = 'url(' + Utils.getThumbnailUrl(scope.uid, '..') + ')';
+                //element[0].style.backgroundImage = 'url(' + Utils.getGlobalThumbnailUrl(scope.uid) + '), url(' + Utils.getThumbnailUrl(scope.uid, '..') + ')';
         }
     };
 };
@@ -127,147 +128,89 @@ directives.autoFocus = function($timeout) {
 	};
 };
 
-directives.addCaptainOptions = function($timeout, $compile, MATCHER_IDS) {
-    var TARGET = MATCHER_IDS['captain.ClassBoostingCaptains'];
+// Uses Bootstrap's Collapse Component
+directives.animateCollapse = function($timeout, $document) {
     return {
-        restrict: 'A',
+        restrict: 'E',
+        transclude: true,
+        template: `<span>
+        <ng-transclude></ng-transclude>
+        <i class="{{ faClasses ? faClasses : 'fa fa-chevron-down pull-right' }}"></i>
+    </span>`,
+        scope: {}, // empty isolate scope for `scope.faClasses`
         link: function(scope, element, attrs) {
-            if (scope.n !== TARGET) return;
-            var filter = $('<div id="class-filters" ng-class="{ enabled: filters.custom[' + TARGET + '] }"></div>');
-            var classes = [ 'Fighter', 'Shooter', 'Slasher', 'Striker', 'Free Spirit', 'Cerebral', 'Powerhouse', 'Driven' ];
-            classes.forEach(function(x,n) {
-                var template = '<span class="filter subclass %c" ng-class="{ active: filters.classCaptain == \'%s\' }" ' +
-                    'ng-click="onCaptainClick($event,\'%s\')">%s</span>';
-                filter.append($(template.replace(/%s/g,x).replace(/%c/,'width-6')));
+            if (attrs.faClasses) { // option to override font awesome classes
+                scope.faClasses = attrs.faClasses;
+            }
+            element.click(()=>{
+                var collapsibleElement = element.next();
+                if (collapsibleElement.hasClass('collapse')) {
+                    element.next().collapse('toggle');
+                }
             });
-            element.after(filter);
-            $compile(filter)(scope);
-            scope.onCaptainClick = function(e,type) {
-                scope.filters.classCaptain = (scope.filters.classCaptain == type ? null : type);
-            };
-        }
-    };
-};
 
-directives.addSailorOptions = function($timeout, $compile, MATCHER_IDS) {
-    //TO DO ONCE WE FIND OUT WHAT SAILOR ABILITIES DO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            if (!$document.isAnimateCollapseHandlerAdded) {
+                // delegate event to top level node, so we only add two event listeners
+                $document.on('hide.bs.collapse', (e) => {
+                    var collapserElement = e.target.previousElementSibling;
+                    if (collapserElement.tagName == 'ANIMATE-COLLAPSE') {
+                        collapserElement.children[0].lastElementChild.classList.remove('fa-flip-vertical');
+                    }
+                });
+                $document.on('show.bs.collapse', (e) => {
+                    var collapserElement = e.target.previousElementSibling;
+                    if (collapserElement.tagName == 'ANIMATE-COLLAPSE') {
+                        collapserElement.children[0].lastElementChild.classList.add('fa-flip-vertical');
+                    }
+                });
+                $document.isAnimateCollapseHandlerAdded = true;
+            }
+        },
+    }
+}
 
-    var TARGET = MATCHER_IDS['sailor.ClassBoostingSailors'];
+directives.addCustomFilters = function($timeout, $compile) {
     return {
-        restrict: 'A',
+        restrict: 'E',
+        replace: true,
+        templateUrl: 'views/custom-filters.html',
+        scope: { target: '@', filterData: '=', filters: '=' },
         link: function(scope, element, attrs) {
-            if (scope.n !== TARGET) return;
-            var filter = $('<div id="class-filters" ng-class="{ enabled: filters.custom[' + TARGET + '] }"></div>');
-            var classes = [ 'Fighter', 'Shooter', 'Slasher', 'Striker', 'Free Spirit', 'Cerebral', 'Powerhouse', 'Driven' ];
-            classes.forEach(function(x,n) {
-                var template = '<span class="filter subclass %c" ng-class="{ active: filters.classSailor == \'%s\' }" ' +
-                    'ng-click="onSailorClick($event,\'%s\')">%s</span>';
-                filter.append($(template.replace(/%s/g,x).replace(/%c/,'width-6')));
-            });
-            element.after(filter);
-            $compile(filter)(scope);
-            scope.onSailorClick = function(e,type) {
-                scope.filters.classSailor = (scope.filters.classSailor == type ? null : type);
-            };
-        }
-    };
-};
+            // turns off all other options in a radio group
+            scope.toggleRadioGroup = function (matcher, submatcherIndex, radioGroup = null) {
+                var submatchers = scope.filters.custom[matcher.target][matcher.group].matchers[matcher.name].submatchers;
+                if (radioGroup) {
+                    for (const [j, submatcher] of submatchers.entries()) {
+                        if (submatcherIndex != j && matcher.submatchers[j].type == 'option' && matcher.submatchers[j].radioGroup == radioGroup)
+                            submatcher.param = false;
+                    }
+                }
+                submatchers[submatcherIndex].param = !submatchers[submatcherIndex].param;
+            }
+            // called when a matcher is toggled, should debounce during the collapse animation
+            // of submatchers div
+            scope.toggleMatcher = function ($event, matcher) {
+                // debounce click during collapse animation, so the filter won't show
+                // the submatchers when it is turned off with a double click
+                var targetElement = $event.target.nextElementSibling;
+                if (targetElement){
+                    if (targetElement.classList.contains('collapsing')){
+                        return;
+                    }
+                    $(targetElement).collapse('toggle');
+                }
 
-directives.addSpecialOptions = function($timeout, $compile, MATCHER_IDS) {
-    var TARGET = MATCHER_IDS['special.ClassBoostingSpecials'];
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            if (scope.n !== TARGET) return;
-            var filter = $('<div id="class-filters" ng-class="{ enabled: filters.custom[' + TARGET + '] }"></div>');
-            var classes = [ 'Fighter', 'Shooter', 'Slasher', 'Striker', 'Free Spirit', 'Cerebral', 'Powerhouse', 'Driven' ];
-            classes.forEach(function(x,n) {
-                var template = '<span class="filter subclass %c" ng-class="{ active: filters.classSpecial == \'%s\' }" ' +
-                    'ng-click="onSpecialClick($event,\'%s\')">%s</span>';
-                filter.append($(template.replace(/%s/g,x).replace(/%c/,'width-6')));
-            });
-            element.after(filter);
-            $compile(filter)(scope);
-            scope.onSpecialClick = function(e,type) {
-                scope.filters.classSpecial = (scope.filters.classSpecial == type ? null : type);
-            };
-        }
-    };
-};
+                var matcherObj = scope.filters.custom[matcher.target][matcher.group].matchers[matcher.name];
+                matcherObj.enabled = !matcherObj.enabled;
 
-directives.addSupportOptions = function($timeout, $compile, MATCHER_IDS) {
-    var TARGET = MATCHER_IDS['support.ClassBoostingSupports'];
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            if (scope.n !== TARGET) return;
-            var filter = $('<div id="class-filters" ng-class="{ enabled: filters.custom[' + TARGET + '] }"></div>');
-            var classes = [ 'Fighter', 'Shooter', 'Slasher', 'Striker', 'Free Spirit', 'Cerebral', 'Powerhouse', 'Driven' ];
-            classes.forEach(function(x,n) {
-                var template = '<span class="filter subclass %c" ng-class="{ active: filters.classSupport == \'%s\' }" ' +
-                    'ng-click="onSupportClick($event,\'%s\')">%s</span>';
-                filter.append($(template.replace(/%s/g,x).replace(/%c/,'width-6')));
-            });
-            element.after(filter);
-            $compile(filter)(scope);
-            scope.onSupportClick = function(e,type) {
-                scope.filters.classSupport = (scope.filters.classSupport == type ? null : type);
-            };
-        }
-    };
-};
-
-directives.addOrbOptions = function($timeout, $compile, MATCHER_IDS) {
-    var TARGET = MATCHER_IDS['special.OrbControllers'];
-    return {
-        restrict: 'A',
-        link: function(scope,element,attrs) {
-            if (scope.n !== TARGET) return;
-            var orbs = { ctrlFrom: [ ], ctrlTo: [ ] };
-            var filter = $('<div id="controllers" ng-class="{ enabled: filters.custom[' + TARGET + '] }">' +
-                    '<span class="separator">&darr;</span></div>');
-            var separator = filter.find('.separator');
-            [ 'STR', 'DEX', 'QCK', 'PSY', 'INT', 'RCV', 'TND', 'BLOCK', 'EMPTY', 'BOMB', 'G' ].forEach(function(type) {
-                var template = '<span class="filter orb %s" ng-class="{ active: filters.%f.indexOf(\'%s\') > -1 }" ' +
-                    'ng-model="filters.%f" ng-click="onOrbClick($event,\'%s\')">%S</span>';
-                separator.before($(template.replace(/%s/g,type).replace(/%S/g,type[0]).replace(/%f/g,'ctrlFrom')));
-                filter.append($(template.replace(/%s/g,type).replace(/%S/g,type[0]).replace(/%f/g,'ctrlTo')));
-            });
-            element.after(filter);
-            $compile(filter)(scope);
-            scope.onOrbClick = function(e,type) {
-                var target = e.target.getAttribute('ng-model');
-                if (!target) return;
-                target = target.match(/filters\.(.+)$/)[1];
-                if (orbs[target].indexOf(type) == -1) orbs[target].push(type);
-                else orbs[target].splice(orbs[target].indexOf(type), 1);
-                orbs[target] = orbs[target].slice(-2);
-                scope.filters[target] = orbs[target];
-            };
-        }
-    };
-};
-
-directives.addDebuffOptions = function($timeout, $compile, MATCHER_IDS) {
-    var TARGET = MATCHER_IDS['special.DebuffReducingSpecials'];
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            if (scope.n !== TARGET) return;
-            var filter = $('<div id="debuff" ng-class="{ enabled: filters.custom[' + TARGET + '] }"></div>');
-            var debuffs = [ 'Bind', 'Despair', 'Silence', 'Paralysis', 'Blindness', 'Poison', 'Anti-Healing', 'Chain Limit' ];
-            debuffs.forEach(function(x,n) {
-                var template = '<span class="filter debuff %c" ng-class="{ active: filters.debuffs == \'%s\' }" ' +
-                    'ng-click="onDebuffClick($event,\'%s\')">%s</span>';
-                filter.append($(template.replace(/%s/g,x).replace(/%c/,'width-6')));
-            });
-            element.after(filter);
-            $compile(filter)(scope);
-            scope.onDebuffClick = function(e,type) {
-                //console.log(scope.filters.debuffs);
-                scope.filters.debuffs = (scope.filters.debuffs == type ? null : type);
-            };
-        }
+            }
+            scope.getCssClasses = function (submatcher) {
+                var classes = ['min-width-12']; //default, may be overridden
+                if (submatcher.cssClasses)
+                    classes = submatcher.cssClasses;
+                return classes;
+            }
+        },
     };
 };
 
@@ -332,8 +275,8 @@ directives.compare = function() {
                         suggestion: function(id) {
                             if (Number.isInteger(id)){
 
-                                var name = units[id].name, url = Utils.getThumbnailUrl(id+1);
-                                //var name = units[id].name, url = Utils.getThumbnailUrl(id+1), url2 = Utils.getGlobalThumbnailUrl(id+1);
+                                var name = units[id].name, url = Utils.getThumbnailUrl(id+1, '..');
+                                //var name = units[id].name, url = Utils.getThumbnailUrl(id+1, '..'), url2 = Utils.getGlobalThumbnailUrl(id+1);
                                 if (name.length > 63) name = name.slice(0,60) + '...';
                                 var thumb = '<div class="slot small" style="background-image: url(' + url + ')"></div>';
                                 //var thumb = '<div class="slot small" style="background-image: url(' + url2 + '), url(' + url + ')"></div>';
@@ -341,7 +284,7 @@ directives.compare = function() {
                                 return '<div><div class="suggestion-container">' + thumb + '<span>' + name + '</span></div></div>';
                             }
                             else{
-                                var name = 'material', url = Utils.getThumbnailUrl(id);
+                                var name = 'material', url = Utils.getThumbnailUrl(id, '..');
                                 var thumb = '<div class="slot small" style="background-image: url(' + url + ')"></div>';
                                 return '<div><div class="suggestion-container">' + thumb + '<span>' + name + '</span></div></div>';
                             }
@@ -395,6 +338,61 @@ directives.comparison = function() {
     };
 };
 
+directives.addSuperSpecialQuery = function($state, $stateParams) {
+    return {
+        restrict: 'E',
+        scope: { criteria: "=", excludedFamilies: "=" },
+        template: '<a role="button" ng-if="query" ui-sref="main.search({query:query})"><b>Search for these characters</b></a>',
+        link: function(scope, element, attrs) {
+            scope.query = Utils.generateSuperSpecialQuery(scope.criteria, scope.excludedFamilies);
+        }
+    };
+};
+
+directives.addSupportQuery = function($state, $stateParams) {
+    return {
+        restrict: 'E',
+        scope: { criteria: "=", excludedFamilies: "=" },
+        template: '<a role="button" ng-if="query" ui-sref="main.search({query:query})"><b>Search for supported characters</b></a>',
+        link: function(scope, element, attrs) {
+            scope.query = Utils.generateSupportedCharactersQuery(scope.criteria, scope.excludedFamilies);
+        }
+    };
+};
+
+directives.addSupportersQuery = function() {
+    return {
+        restrict: 'E',
+        scope: { uid: "=" },
+        template: '<a role="button" ng-if="query" ui-sref="main.search({query:query})"><b>Search for attachable supports</b></a>',
+        link: function(scope, element, attrs) {
+            scope.query = Utils.generateAttachableSupportsQuery(scope.uid);
+        }
+    };
+};
+
+directives.addSuperTandemQuery = function() {
+    return {
+        restrict: 'E',
+        scope: { criteria: "=", excludedFamilies: "=" },
+        template: '<a role="button" ng-if="query" ui-sref="main.search({query:query})"><b>Search for these characters</b></a>',
+        link: function(scope, element, attrs) {
+            scope.query = Utils.generateSuperTandemQuery(scope.criteria, scope.excludedFamilies);
+        }
+    };
+};
+
+directives.scrollToSection = function($state, $stateParams) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.click(function(e) {
+                document.getElementById(attrs.scrollToSection).scrollIntoView({ behavior: 'smooth' })
+            });
+        }
+    };
+};
+
 directives.addNames = function($stateParams, $rootScope) {
     var name = window.aliases;
     return {
@@ -403,19 +401,20 @@ directives.addNames = function($stateParams, $rootScope) {
         template: '<table class="table table-striped-column abilities"><tbody></tbody></table>',
         link: function(scope, element, attrs) {
             var id = $stateParams.id, data = details[id];
-
-                var currentAliases = name[id];
-                if(currentAliases[0]!=''){
-                element.append($('<tr><td>Japanese</td><td><div>'+ currentAliases[0] +'</div></td></tr>'));
-                }
-                if(currentAliases[1]!=''){
-                    element.append($('<tr><td>French</td><td><div>'+ currentAliases[1] +'</div></td></tr>'));
-                }
-                if(currentAliases[2]){
-                    var otherAliases = currentAliases.toString().replace(/(.*?),(.*?),/,"");
-                    element.append($('<tr><td>Others</td><td><div>'+ otherAliases +'</div></td></tr>'));
-                }
-                }
+            var htmlToAppend = "";
+            var currentAliases = name[id];
+            if(currentAliases[0]!=''){
+                htmlToAppend += '<tr><td>Japanese</td><td><div>'+ currentAliases[0] +'</div></td></tr>';
+            }
+            if(currentAliases[1]!=''){
+                htmlToAppend += '<tr><td>French</td><td><div>'+ currentAliases[1] +'</div></td></tr>';
+            }
+            if(currentAliases[2]){
+                var otherAliases = currentAliases.slice(2).join(', ');
+                htmlToAppend += '<tr><td>Others</td><td><div>'+ otherAliases +'</div></td></tr>';
+            }
+            element.append(htmlToAppend);
+        }
     }
 };
 
@@ -429,90 +428,133 @@ directives.addTags = function($stateParams, $rootScope) {
             var id = $stateParams.id, data = details[id];
             // flags
             var flags = window.flags[id] || { };
-            element.append($('<span class="tag flag">' + (flags.global ? 'Global unit' : 'Japan unit') + '</div>'));
-            element.append($('<span class="tag flag">' +
-                        (CharUtils.isFarmable(id) ? 'Farmable' : 'Non-farmable') + '</div>'));
-            if (flags.rr) element.append($('<span class="tag flag">Rare Recruit only</div>'));
-            if (flags.lrr) element.append($('<span class="tag flag">Limited Rare Recruit only</div>'));
-            if (flags.tmlrr) element.append($('<span class="tag flag">Treasure Map Sugo-fest Limited Rare Recruit only</div>'));
-            if (flags.kclrr) element.append($('<span class="tag flag">Kizuna Clash Sugo-fest Limited Rare Recruit only</div>'));
-            if (flags.pflrr) element.append($('<span class="tag flag">Pirate Rumble Sugo-fest Limited Rare Recruit only</div>'));
-            if (flags.slrr) element.append($('<span class="tag flag">Support Sugo-fest Limited Rare Recruit only</div>'));
-            if (flags.promo) element.append($('<span class="tag flag">Promo-code only</div>'));
-            if (flags.shop) element.append($('<span class="tag flag">Rayleigh Shop Unit</div>'));
-            if (flags.tmshop) element.append($('<span class="tag flag">Trade Port Unit</div>'));
-            if (flags.special) element.append($('<span class="tag flag">One time only characters</div>'));
-            if (flags.inkable) element.append($('<span class="tag flag">Inkable</div>'));
+            var htmlToAppend = "";
+            htmlToAppend += '<span class="tag flag">' + (flags.global ? 'Global unit' : 'Japan unit') + '</span>';
+            htmlToAppend += '<span class="tag flag">' +
+                        (CharUtils.isFarmable(id) ? 'Farmable' : 'Non-farmable') + '</span>';
+            if (flags.rr) htmlToAppend += '<span class="tag flag">Rare Recruit only</span>';
+            if (flags.lrr) htmlToAppend += '<span class="tag flag">Limited Rare Recruit only</span>';
+            if (flags.tmlrr) htmlToAppend += '<span class="tag flag">Treasure Map Sugo-fest Limited Rare Recruit only</span>';
+            if (flags.kclrr) htmlToAppend += '<span class="tag flag">Kizuna Clash Sugo-fest Limited Rare Recruit only</span>';
+            if (flags.pflrr) htmlToAppend += '<span class="tag flag">Pirate Rumble Sugo-fest Limited Rare Recruit only</span>';
+            if (flags.superlrr) htmlToAppend += '<span class="tag flag">Super Sugo-fest Limited Rare Recruit only</span>';
+            if (flags.slrr) htmlToAppend += '<span class="tag flag">Support Sugo-fest Limited Rare Recruit only</span>';
+            if (flags.superlrr) htmlToAppend += '<span class="tag flag">Super Sugo-fest Limited Rare Recruit only</span>';
+            if (flags.annilrr) htmlToAppend += '<span class="tag flag">Anniversary Sugo-fest Limited Rare Recruit only</span>';
+            if (flags.promo) htmlToAppend += '<span class="tag flag">Promo-code only</span>';
+            if (flags.shop) htmlToAppend += '<span class="tag flag">Rayleigh Shop Unit</span>';
+            if (flags.tmshop) htmlToAppend += '<span class="tag flag">Trade Port Unit</span>';
+            if (flags.special) htmlToAppend += '<span class="tag flag">One time only characters</span>';
+            if (flags.inkable) htmlToAppend += '<span class="tag flag">Inkable</span>';
             if (CharUtils.checkFarmable(id, { 'Story Island': true }))
-                element.append($('<span class="tag flag">Story mode only</div>'));
+                htmlToAppend += '<span class="tag flag">Story mode only</span>';
             if (CharUtils.checkFarmable(id, { Fortnight: true }))
-                element.append($('<span class="tag flag">Fortnight only</div>'));
+                htmlToAppend += '<span class="tag flag">Fortnight only</span>';
             if (CharUtils.checkFarmable(id, { Raid: true }))
-                element.append($('<span class="tag flag">Raid only</div>'));
+                htmlToAppend += '<span class="tag flag">Raid only</span>';
+            if (CharUtils.checkFarmable(id, { Arena: true }))
+                htmlToAppend += '<span class="tag flag">Arena only</span>';
             if (CharUtils.checkFarmable(id, { Treasure: true }))
-                element.append($('<span class="tag flag">Treasure Map only</div>'));
+                htmlToAppend += '<span class="tag flag">Treasure Map only</span>';
             if (CharUtils.checkFarmable(id, { 'Story Island': true, Fortnight: true }))
-                element.append($('<span class="tag flag">Story mode & fortnight only</div>'));
+                htmlToAppend += '<span class="tag flag">Story mode & fortnight only</span>';
             if (CharUtils.checkFarmable(id, { 'Story Island': true, Raid: true }))
-                element.append($('<span class="tag flag">Story mode & raid only</div>'));
+                htmlToAppend += '<span class="tag flag">Story mode & raid only</span>';
             if (CharUtils.checkFarmable(id, { Raid: true, Fortnight: true }))
-                element.append($('<span class="tag flag">Raid & fortnight only</div>'));
+                htmlToAppend += '<span class="tag flag">Raid & fortnight only</span>';
             // matchers
-            if (!data) return;
-            matchers.forEach(function(matcher) {
-                var name;
-                // captain effects
-                if (matcher.target == 'captain' && matcher.matcher.test(data.captain)) {
-                    name = matcher.name;
-                    if (!/captains$/.test(name)) name = name.replace(/ers$/,'ing').replace(/s$/,'') + ' captain';
-                    else name = name.replace(/s$/,'');
-                    name = name.replace(/iing/,'ying');
-                    element.append($('<span class="tag captain">' + name + '</div>'));
-                }
-                // sailor effects
-                if (matcher.target.indexOf('sailor') === 0 && !(data[matcher.target] === undefined)) {
-                    if (data[matcher.target].base){
-                        for (var sailor in data[matcher.target]){
-                            if (matcher.matcher.test(data[matcher.target][sailor])){
+            if (data) {
+                for (const target in window.matchers) {
+                    for (const group in window.matchers[target]) {
+                        for (var name in window.matchers[target][group]) {
+                            var matcher = window.matchers[target][group][name];
+                            if (!data[matcher.target])
+                                break;
+                            let targetString = (data[matcher.target].constructor == String)
+                                ? data[matcher.target]
+                                : JSON.stringify(data[matcher.target]);
+
+                            // captain effects
+                            if (matcher.target == 'captain' && matcher.regex.test(targetString)) {
                                 name = matcher.name;
-                                if (!/sailor$/.test(name)) name = name.replace(/ers$/,'ing').replace(/s$/,'') + ' sailor';
+                                if (/Class$/.test(name)) name = 'Captain: ' + name;
+                                else if (!/captains$/.test(name)) name = "Captain: " + name.replace(/ers$/,'ing');
                                 else name = name.replace(/s$/,'');
                                 name = name.replace(/iing/,'ying');
-                                if (name != "Has Sailor Ability sailor"){
-                                    element.append($('<span class="tag sailor">' + name + '</div>'));
+                                htmlToAppend += '<span class="tag captain">' + name + '</span>';
+                            }
+                            // sailor effects
+                            if (matcher.target.indexOf('sailor') === 0 && !(data[matcher.target] === undefined)) {
+                                if (data[matcher.target].base){
+                                    for (var sailor in data[matcher.target]){
+                                        if (matcher.regex.test(data[matcher.target][sailor])){
+                                            name = matcher.name;
+                                            if (!/sailor$/.test(name)) name = "Sailor: " + name.replace(/ers$/,'ing');
+                                            else name = name.replace(/s$/,'');
+                                            name = name.replace(/iing/,'ying');
+                                            if (name != "Has Sailor Ability sailor"){
+                                                htmlToAppend += '<span class="tag sailor">' + name + '</span>';
+                                            }
+                                        }
+                                    }
                                 }
+                                else{
+                                    if (matcher.regex.test(data[matcher.target])){
+                                        name = matcher.name;
+                                        if (!/sailor$/.test(name)) name = "Sailor: " + name.replace(/ers$/,'ing');
+                                        else name = name.replace(/s$/,'');
+                                        name = name.replace(/iing/,'ying');
+                                        htmlToAppend += '<span class="tag sailor">' + name + '</span>';
+                                    }
+                                }
+                            }
+                            // specials
+                            if (matcher.target.indexOf('special') === 0 && matcher.regex.test(targetString)) {
+                                name = matcher.name;
+                                if (!/specials$/.test(name)) name = "Special: " + name.replace(/ers$/,'ing');
+                                else name = name.replace(/s$/,'');
+                                name = name.replace(/iing/,'ying');
+                                htmlToAppend += '<span class="tag special">' + name + '</span>';
+                            }
+                            // limit
+                            if (matcher.target.indexOf('limit') === 0 && matcher.regex.test(targetString)) {
+                                name = matcher.name;
+                                if (!/limit$/.test(name)) name = "Limit Break: " + name.replace(/ers$/,'ing');
+                                else name = name.replace(/s$/,'');
+                                name = name.replace(/iing/,'ying');
+                                if (name != "Has Limit Break limit"){
+                                    htmlToAppend += '<span class="tag limit">' + name + '</span>';
+                                }
+                            }
+                            // potentials
+                            if (matcher.target.indexOf('potential') === 0 && matcher.regex.test(targetString)) {
+                                name = matcher.name;
+                                if (!/potential$/.test(name)) name = "Potential Ability: " + name.replace(/ers$/,'ing');
+                                else name = name.replace(/s$/,'');
+                                name = name.replace(/iing/,'ying');
+                                htmlToAppend += '<span class="tag potential">' + name + '</span>';
+                            }
+                            // super specials
+                            if (matcher.target === 'superSpecial' && matcher.regex.test(targetString)) {
+                                name = matcher.name;
+                                if (!/specials$/.test(name)) name = "Super Special: " + name.replace(/ers$/,'ing');
+                                else name = name.replace(/s$/,'').replace(/special/i, 'Super Special');
+                                name = name.replace(/iing/,'ying');
+                                htmlToAppend += '<span class="tag superSpecial">' + name + '</span>';
+                            }
+                            // support
+                            if (matcher.target === 'support' && matcher.regex.test(targetString)) {
+                                name = matcher.name;
+                                if (!/support$/.test(name)) name = "Support: " + name.replace(/ers$/,'ing');
+                                else name = name.replace(/s$/,'');
+                                name = name.replace(/iing/,'ying');
+                                htmlToAppend += '<span class="tag support">' + name + '</span>';
                             }
                         }
                     }
-                    else{
-                        if (matcher.matcher.test(data[matcher.target])){
-                            name = matcher.name;
-                            if (!/sailor$/.test(name)) name = name.replace(/ers$/,'ing').replace(/s$/,'') + ' sailor';
-                            else name = name.replace(/s$/,'');
-                            name = name.replace(/iing/,'ying');
-                            element.append($('<span class="tag sailor">' + name + '</div>'));
-                        }
-                    }
-                }
-                // specials
-                if (matcher.target.indexOf('special') === 0 && matcher.matcher.test(data[matcher.target])) {
-                    name = matcher.name;
-                    if (!/specials$/.test(name)) name = name.replace(/ers$/,'ing').replace(/s$/,'') + ' special';
-                    else name = name.replace(/s$/,'');
-                    name = name.replace(/iing/,'ying');
-                    element.append($('<span class="tag special">' + name + '</div>'));
-                }
-                // limit
-                if (matcher.target.indexOf('limit') === 0 && matcher.matcher.test(data[matcher.target])) {
-                    name = matcher.name;
-                    if (!/limit$/.test(name)) name = name.replace(/ers$/,'ing').replace(/s$/,'') + ' limit';
-                    else name = name.replace(/s$/,'');
-                    name = name.replace(/iing/,'ying');
-                    if (name != "Has Limit Break limit"){
-                        element.append($('<span class="tag limit">' + name + '</div>'));
-                    }
-                }
-            });
+                };
+            }
+            element.append(htmlToAppend);
         }
     };
 };
@@ -613,6 +655,7 @@ filters.patternToString = function() {
           }
         }
         else if  (input.action == "heal") {
+          input.area = input.area[0].toUpperCase() + input.area.slice(1);
           return `<i>Level ${input.level} ${input.area == "Self" ? input.area : input.area + " Range"} Heal</i>`;
         }
         else {
@@ -624,13 +667,20 @@ filters.patternToString = function() {
 filters.resilienceToString = function() {
   return function(input) {
       if (!input) return 'N/A';
-      if (input.amount) {
-        return `${conditionToString(input.condition)}Heals ${input.amount} HP every ${input.interval} seconds.`
+      switch(input.type){
+        case "dmgboost":
+            return `${conditionToString(input.condition)}${input.amount}x boost to ${input.attribute} enemies.`
+            break;
+        case "healing":
+            return `${conditionToString(input.condition)}Heals ${input.amount} HP every ${input.interval} seconds.`
+            break;
+        case "damage":
+            return `${conditionToString(input.condition)}${input.percentage}% reduction to ${input.attribute} damage.`
+            break;
+        case "debuff":
+            return `${conditionToString(input.condition)}${input.chance}% to resist ${input.attribute}.`;
+            break;
       }
-      if (input.type == "damage") {
-        return `${input.percentage}% reduction to ${input.attribute} damage.`
-      }
-      return `${input.chance}% to resist ${input.attribute}.`;
     }
 };
 
@@ -641,12 +691,45 @@ filters.specialToString = function() {
     }
 };
 
+filters.gpconditionToString = function() {
+    return function(input) {
+        switch (input.type){
+          case "time":
+            return `${input.comparator == "after" ? "After" : "At Exactly"} ${input.count} seconds`
+          case "damage":
+            return `After dealing damage ${input.count} times`
+          case "action":
+            return `After ${input.action}ing ${input.count} times`
+          case "debuff":
+            return `After landing ${input.attribute} ${input.count} times`
+          case "attack":
+            return `After landing ${input.count} ${input.attack} attacks`
+          case "defeat":
+            return `After ${input.count} ${input.team} are defeated`
+          case "special":
+            return `After ${input.team} uses ${input.count} Rumble Specials`
+          case "dbfreceived":
+            return `After ${input.count} debuffs recieved`
+          case "dmgdealt":
+            return `After ${new Intl.NumberFormat().format(input.count)} damage dealt`
+          case "dmgreceived":
+            return `After ${new Intl.NumberFormat().format(input.count)} damage recieved`
+          case "hitreceived":
+            return `After ${input.count} hits recieved`
+          default:
+            return `UNKNOWN CONDITION ${JSON.stringify(input)}`;
+        }
+      }
+};
+
 filters.abilityToString = function() {
     return function(input) {
         if (!input) return 'N/A';
-        let retVal = `<ul style="margin-bottom:3px;">`;
+        //let retVal = `<ul style="margin-bottom:3px;">`;
+        let retVal = ``;
         for (var effect of input){
-          let e = `<li>${conditionToString(effect.condition)}`;
+          //let e = `<li>${conditionToString(effect.condition)}`;
+          let e = `<br>${conditionToString(effect.condition)}`;
           switch (effect.effect) {
             case "buff":
               e += `Applies Lv.${effect.level} ${arrayToString(effect.attributes)} up buff`;
@@ -660,10 +743,16 @@ filters.abilityToString = function() {
                   e += `Deals Lv.${effect.level} Damage Over Time`;
                   break;
                 case "atk":
-                  e += `Deals ${new Intl.NumberFormat().format(effect.amount)}x ATK in damage`;
+                  e += `Deals ${new Intl.NumberFormat().format(effect.amount)}x ${effect.leader ? "Leader's " : ""}ATK in damage`;
+                  break;
+                case "atkbase":
+                  e += `Deals ${new Intl.NumberFormat().format(effect.amount)}x ${effect.leader ? "Leader's " : ""}base ATK in damage`;
                   break;
                 case "fixed":
                   e += `Deals ${new Intl.NumberFormat().format(effect.amount)} fixed damage`;
+                  break;
+                case "random":
+                  e += `Randomly deals between ${new Intl.NumberFormat().format(effect.amountrange[0])}-${new Intl.NumberFormat().format(effect.amountrange[1])} fixed damage`;
                   break;
                 case "cut":
                   e += `${new Intl.NumberFormat().format(effect.amount)}% health cut`;
@@ -690,9 +779,10 @@ filters.abilityToString = function() {
                 default:
                   e += "TODO:  " + JSON.stringify(effect);
               }
+              if(effect.interval) e += ` every ${effect.interval} ${effect.interval == 1 ? "second" : "seconds"}`;
               break;
             case "hinderance":
-              e += effect.amount ? `Removes ${new Intl.NumberFormat().format(effect.amount)}% of ${arrayToString(effect.attributes)}` : `${effect.chance}% chance to inflict ${arrayToString(effect.attributes)}`;
+              e += effect.amount ? `Removes ${new Intl.NumberFormat().format(effect.amount)}% of ${arrayToString(effect.attributes)}` : `${effect.chance}% chance to inflict ${effect.level ? "Lv."+effect.level+" " : ""}${arrayToString(effect.attributes)}`;
               break;
             case "boon":
               e += `${effect.chance ? effect.chance+ "% chance to " : ""}`;
@@ -707,8 +797,11 @@ filters.abilityToString = function() {
                 case "Counter":
                   e += `${effect.chance ? "g" : "G"}rant ${effect.amount}x Counter`
                 break;
+                case "Revive":
+                  e += `${effect.chance ? "r" : "R"}evive to ${effect.amount}% HP after death`
+                break;
                 default:
-                  e += `${"reduce " + attrStr}`;
+                  e += `${"Reduce " + attrStr}`;
                 break;
               }
               break;
@@ -719,20 +812,28 @@ filters.abilityToString = function() {
               else if(effect.level)
                 e += `Inflicts Lv.${new Intl.NumberFormat().format(effect.level)} ${arrayToString(effect.attributes)} down penalty`;
               else
-                e += `${effect.chance}% chance to ${arrayToString(effect.attributes)}`;
+                e += `${effect.chance || 100}% chance to ${arrayToString(effect.attributes)}`;
+              break;
+            case "cleanse":
+              e += `${effect.chance}% chance to cleanse ${arrayToString(effect.attributes)} debuffs`;
               break;
             default:
               e = "UNKNOWN EFFECT " + JSON.stringify(effect)
               break;
           }
-          retVal += e + `${targetToString(effect.targeting)}${rangeToString(effect.range)}${effect.duration ? " for " + effect.duration + " seconds" : ""}.</li>`;
+          retVal += e + `${targetToString(effect.targeting)}${rangeToString(effect.range)}${effect.duration ? " for " + effect.duration + " seconds" : ""}` + (effect.repeat ? ` ${new Intl.NumberFormat().format(effect.repeat)} times` : ``) + `.</li>`;
         }
         return retVal+"</ul>";
     };
 };
 
 function arrayToString(array) {
-  let tmpStr = new Intl.ListFormat().format(array);
+  let tmpStr = new Intl.ListFormat('en').format(array);
+  return tmpStr;
+}
+
+function arrayToStringOr(array) {
+  let tmpStr = new Intl.ListFormat('en', { type: 'disjunction' }).format(array);
   return tmpStr;
 }
 
@@ -755,11 +856,15 @@ function conditionToString(condition, suffix) {
       }
     case "crew":
     case "enemies":
-      return `When there are ${condition.count} or ${condition.comparator} ${condition.type} remaining, `
+      return `When there are ${condition.count} or ${condition.comparator} ${condition.type} ${condition.targets ? arrayToString(condition.targets) + " characters" : ""}${condition.relative ? condition.type == "crew" ? " than the enemy team" : " than your crew" : ""}${condition.composition ? "" : " remaining"}, `
     case "trigger":
-      return `The first ${condition.count} times this character lands a ${condition.stat}, `
+      return `The first ${condition.count} times ${condition.stat.includes("defeated") ? condition.team ? condition.team + (condition.targets ? arrayToString(condition.targets) : "") + " characters are " : "" : "this character "}${condition.stat == "takes damage" || condition.stat.includes("recieves") || condition.stat.includes("defeated") ? condition.stat : "lands a " + condition.stat}, `
+    case "debuff":
+      return `If this character has ${condition.stat}, `
     case "defeat":
       return `When ${condition.count} characters ${condition.team == "enemies" ? "on the enemy team " : condition.team == "crew" ? "on your crew " : ""}are defeated, `
+    case "character":
+      return `When ${arrayToStringOr(condition.families)} ${condition.families.length > 1 ? "are" : "is"} ${condition.team == "enemies" ? "on the enemy team" : condition.team == "crew" ? "on your crew" : ""}, `
     default:
       return `UNKNOWN CONDITION ${JSON.stringify(condition)}`;
   }
@@ -773,6 +878,7 @@ function rangeToString(range) {
 function targetToString(target) {
   if (!target) return '';
   let targetStr = arrayToString(target.targets);
+  let excludeStr = arrayToString(target.excludes);
   if (targetStr == "crew") targetStr = "crew member(s)";
   if (targetStr == "enemies") {
     if (!target.count)
@@ -780,8 +886,9 @@ function targetToString(target) {
     else if (target.count == 1)
       targetStr = "enemy";
   }
-  let retVal = ` to ${target.count ? target.count + " " : ""}${targetStr}${target.targets.includes("self") || target.targets.includes("crew") || target.targets.includes("enemies") ? "" : target.count == 1 ? " character" : " characters"}`;
-  retVal = retVal + `${target.stat ? (" with " + (target.percentage ? "a " + target.percentage + "% or " :"the ") + target.priority + " " + target.stat) : ""}`;
+  let retVal = ` to ${target.count ? target.count + " " : ""}${targetStr}${target.families ? " " + arrayToStringOr(target.families) : ""}${target.targets.includes("self") || target.targets.includes("crew") || target.targets.includes("enemies") ? "" : target.count == 1 ? " character" : " characters"}`;
+  retVal = retVal + `${target.excludes ? ", excluding " : ""}${target.excludes ? excludeStr : ""}${target.excludes ? target.excludes.includes("self") || target.excludes.includes("crew") || target.excludes.includes("enemies") ? "" : target.count == 1 ? " character" : " characters" : ""}`;
+  retVal = retVal + `${target.stat ? (" with " + (target.percentage ?  (target.priority == "exactly" ? target.priority + " " : "a ") + target.percentage + "%" :"the " + target.priority) + " " + target.stat) : ""}`;
   return retVal;
 }
 

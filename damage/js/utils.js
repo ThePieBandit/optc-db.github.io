@@ -67,6 +67,43 @@ window.CrunchUtils.classSort = function(array, classMultiplier, classes) {
     return result;
 };
     
+/* Sorts by class (units not belonging to the specified class(es) at the
+ * beginning), then by ATK. classMultiplier is the multiplier units belonging
+ * to the specified class(es) receive. */
+window.CrunchUtils.typeclassSort = function(array, classMultiplier, classes) {
+    var result = [ ];
+    function isUnitAMatch(unit) {
+        for (var n = 0;n<classes.length;n++) {
+            if (unit.class.has(classes[n])) {
+                return true;
+            }
+        }
+        if (classes.includes(unit.type)) {
+            return true;
+        }
+        return false;
+    }
+    // atk-based
+    var temp = array.map(function(x) {
+        var multiplier = x.multipliers.reduce(function(prev,next) { return prev * next[0]; },1);
+        return [ x.base * multiplier * (isUnitAMatch(x.unit.unit) ? classMultiplier : 1), x ];
+    });
+    temp.sort(function(x,y) { return x[0] - y[0]; });
+    result.push(temp.map(function(x) { return x[1]; }));
+    // class-based
+    var beginning = [ ], end = [ ];
+    array.forEach(function(x) {
+        if (isUnitAMatch(x.unit.unit)) {
+            end.push(x);
+        } else {
+            beginning.push(x);
+        }
+    });
+    result.push(beginning.concat(end));
+    // return result
+    return result;
+};
+    
 window.CrunchUtils.lowCostSort = function(array, costMultiplier, cost) {
     var result = [ ];
     function isUnitAMatch(unit) {
@@ -160,8 +197,22 @@ window.CrunchUtils.gearSort = function(array, typeMultiplier) {
     result.push(beginning.concat(end));
     return result;
 };
+    
+window.CrunchUtils.kataCount = function(checkClasses, unitClasses) {
+    return checkClasses.reduce((a, c) => a + unitClasses.includes(c), 0);
+};
 
-window.CrunchUtils.getOrbMultiplier = function(orb, type, uclass, baseMultiplier, boostedMultiplier, captains, effectName) {
+window.CrunchUtils.getOrbMultiplier = function(orb, type, uclass, baseMultiplier, boostedMultiplier, captains, effectName, params) {
+    /* Object.keys(window.altspecials).forEach(function(x) {
+        if (window.altspecials[x].hasOwnProperty('orbPlus')){
+            if(window.altspecials[x].turnedOn)
+                if (window.altspecials[x].orbPlus(params) > orbPlusBonus)
+                    orbPlusBonus = window.altspecials[x].orbPlus(params)
+        }
+    }); */
+
+    boostedMultiplier = parseFloat(params.customBuffs.orb) != 1 ? parseFloat(params.customBuffs.orb) : boostedMultiplier;
+    
     if(effectName == 'STR Orbs Beneficial'){
         if (orb == 'str') return boostedMultiplier;
         if (orb == 0.5 && type == 'DEX') return boostedMultiplier;
@@ -169,6 +220,9 @@ window.CrunchUtils.getOrbMultiplier = function(orb, type, uclass, baseMultiplier
     if(window.specials[1221].turnedOn || window.specials[1222].turnedOn || window.specials[2235].turnedOn || window.specials[2236].turnedOn || window.specials[2363].turnedOn || window.specials[2370].turnedOn || window.specials[2371].turnedOn){
         if (orb == 'str') return boostedMultiplier;
         if (orb == 0.5 && type == 'DEX') return boostedMultiplier;
+    }
+    if(window.specials[3957].turnedOn){
+        if (orb == 'meat') return boostedMultiplier;
     }
     if(window.specials[1940].turnedOn || window.specials[1941].turnedOn){
         if(type == 'STR' || type == 'PSY' || type == 'QCK'){
@@ -184,7 +238,7 @@ window.CrunchUtils.getOrbMultiplier = function(orb, type, uclass, baseMultiplier
             if (orb == 0.5 && type == 'QCK') return boostedMultiplier;
         }
     }
-    if(window.specials[1593].turnedOn){
+    if(window.specials[1593].turnedOn.has(true)){
         if(uclass.has("Fighter") || uclass.has("Free Spirit")){
             if (orb == 'str') return boostedMultiplier;
             if (orb == 0.5 && type == 'DEX') return boostedMultiplier;
@@ -239,7 +293,7 @@ window.CrunchUtils.getOrbMultiplier = function(orb, type, uclass, baseMultiplier
     if(window.specials[1515].turnedOn || window.specials[1516].turnedOn){
         if (orb == 'meat') return boostedMultiplier;
     }
-    if(window.specials[1593].turnedOn){
+    if(window.specials[1593].turnedOn.has(true)){
         if(uclass.has("Fighter")){
             if (orb == 'meat') return boostedMultiplier;
         }
@@ -261,13 +315,24 @@ window.CrunchUtils.getOrbMultiplier = function(orb, type, uclass, baseMultiplier
             if (orb == 0.5 && type == 'QCK') return boostedMultiplier;
         }
     }
+    if(window.specials[3740].turnedOn || window.specials[3741].turnedOn){
+        if (orb == 'empty') return boostedMultiplier;
+    }
+    if(window.specials[5430].turnedOn || window.specials[5432].turnedOn || window.altspecials[5432].turnedOn || window.altspecials[5432].turnedOn){
+        if (orb == 'tnd') return boostedMultiplier;
+    }
     if(window.specials[1269].turnedOn || window.specials[1270].turnedOn || window.specials[1330].turnedOn || window.specials[1546].turnedOn || window.specials[1547].turnedOn || window.specials[1557].turnedOn || window.specials[1890].turnedOn || window.specials[1891].turnedOn || window.specials[2227].turnedOn || window.specials[2478].turnedOn || window.specials[2479].turnedOn){
         if (orb == 0.5) return baseMultiplier;
     }
     for(temp = 0; temp < 2; temp++){
         if(captains[temp] != null){
-            if([1610, 1609, 1531, 1532, 2232, 2233, 2234, 2500, 2803, 2804, 5052, 5054, 5055, 5057, 2957, 2958, 3306, 3307].includes(captains[temp].number + 1)){
+            if([1610, 1609, 1532, 1531, 2232, 2233, 2234, 2500, 2300, 2803, 2804, 5052, 5054, 5055, 5057, 2957, 2957, 3306, 3307, 3814, 3888, 3889, 3904, 3905, 3947, 3948, 5453, 5454, 5455, 5456, 5457, 5548, 5459, 5460, 3955, 3956, 3957, 3966, 3967, 5547, 5548, 5549, 5550, 5551, 5552, 5553, 5554, 4028, 4029, 4139].includes(captains[temp].number + 1)){
                 if (orb == 'meat'){
+                    return boostedMultiplier;
+                }
+            }
+            if([5453, 5454, 5455, 5456, 5457, 5548, 5459, 5460, 5539, 5540, 5541, 5542, 5543, 5544, 5545, 5546, 4028, 4029, 4050].includes(captains[temp].number + 1)){
+                if (orb == 'tnd'){
                     return boostedMultiplier;
                 }
             }
@@ -311,12 +376,25 @@ window.CrunchUtils.getOrbMultiplier = function(orb, type, uclass, baseMultiplier
                     return boostedMultiplier;
                 }
             }
+            if([4050].includes(captains[temp].number + 1)){
+                if ((orb == 'dex') || (orb == 2  && type == 'DEX')){
+                    return boostedMultiplier;
+                }
+            }
         }
     }
     if (orb == 1.0 || orb == 'str' || orb == 'dex' || orb == 'qck' || orb == 'psy' || orb == 'int' || orb == 'meat' || orb == 'empty') return baseMultiplier;
     if (orb == 2.0 || orb == 'g' || orb == 'superbomb' || orb == 'rainbow' || orb == 'wano') return boostedMultiplier;
     if (orb == 0.5) return 1 / boostedMultiplier;
     return 1;
+};
+
+window.CrunchUtils.limitUnlock = function(p, ability) {
+    return p.team[p.sourceSlot].unit.limitStats[ability][Math.min(p.team[p.sourceSlot].limit,p.team[p.sourceSlot].unit.limitStats[ability].length-1)];
+};
+
+window.CrunchUtils.llimitUnlock = function(p, ability) {
+    return p.team[p.sourceSlot].unit.llimitStats[ability][Math.min(p.team[p.sourceSlot].llimit,p.team[p.sourceSlot].unit.llimitStats[ability].length-1)];
 };
 
 })();
